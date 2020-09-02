@@ -14,9 +14,9 @@ public class CompareTag : MonoBehaviour
     [Tooltip("Events invoked after the tag is checked")]
     private BoolEvents events;
 
-    public void Compare()
+    public void Invoke()
     {
-        if(gameObjectReference.GetValue().tag.Equals(tagToCheck.GetValue()))
+        if(gameObjectReference.value.tag.Equals(tagToCheck.value))
         {
             events._true.Invoke();
         }

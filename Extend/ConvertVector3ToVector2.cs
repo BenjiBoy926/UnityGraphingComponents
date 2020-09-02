@@ -12,7 +12,7 @@ public class ConvertVector3ToVector2 : MonoBehaviour
 
     public void Invoke()
     {
-        vector2?.SetValue(vector3.GetValue());
+        vector2.value = vector3.value;
         output.Invoke();
     }
 }

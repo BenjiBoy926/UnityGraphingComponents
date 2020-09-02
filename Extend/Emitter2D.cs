@@ -20,17 +20,17 @@ public class Emitter2D : MonoBehaviour
     [SerializeField]
     private UnityEvent output;
 
-    public void Do()
+    public void Invoke()
     {
-        Transform cloneParent = parent.GetValue() != null ? parent.GetValue().transform : null;
-        GameObject instance = Instantiate(prefab.GetValue(), origin.GetValue(), prefab.GetValue().transform.rotation, cloneParent);
+        Transform cloneParent = parent.value != null ? parent.value.transform : null;
+        GameObject instance = Instantiate(prefab.value, origin.value, prefab.value.transform.rotation, cloneParent);
         Rigidbody2D cloneRigidbody = instance.GetComponent<Rigidbody2D>();
 
         if(cloneRigidbody != null)
         {
-            cloneRigidbody.velocity = direction.GetValue().normalized * speed.GetValue();
+            cloneRigidbody.velocity = direction.value.normalized * speed.value;
 
-            clone?.SetValue(instance);
+            clone.value = instance;
             output.Invoke();
         }
     }

@@ -18,7 +18,7 @@ public class AddFloats : MonoBehaviour
 
     public void Add()
     {
-        result?.SetValue(float1.GetValue() + float2.GetValue());
+        result.value = float1.value + float2.value;
         output.Invoke();
     }
 }

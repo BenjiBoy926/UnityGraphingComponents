@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-public class EditorReferenceDrawer
+public static class ReferenceDrawer
 {
     private const float TYPE_WIDTH = 90f;
     private const float VALUE_BUFFER = 12f;
@@ -29,13 +29,15 @@ public class EditorReferenceDrawer
                 content.y,
                 content.width - TYPE_WIDTH - EditorGUIUtility.standardVerticalSpacing,
                 content.height);
-            EditorGUI.PropertyField(rect, property.FindPropertyRelative("component"), GUIContent.none);
+
+            string propertyName = switchProperty.enumValueIndex == 1 ? "gameObject" : "tag";
+            EditorGUI.PropertyField(rect, property.FindPropertyRelative(propertyName), GUIContent.none);
         }
     }
 
     public static float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        SerializedProperty value = property.FindPropertyRelative("value");
+        SerializedProperty value = property.FindPropertyRelative("directValue");
         SerializedProperty type = property.FindPropertyRelative("type");
         float valueHeight = EditorGUI.GetPropertyHeight(value, true);
 
@@ -48,7 +50,7 @@ public class EditorReferenceDrawer
 
     private static void OnGUIValue(Rect position, Rect content, SerializedProperty property)
     {
-        SerializedProperty value = property.FindPropertyRelative("value");
+        SerializedProperty value = property.FindPropertyRelative("directValue");
         float height = EditorGUI.GetPropertyHeight(value, true);
 
         if(height <= GraphingEditorUtility.standardControlHeight)

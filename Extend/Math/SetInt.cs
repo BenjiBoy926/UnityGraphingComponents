@@ -11,9 +11,9 @@ public class SetInt : MonoBehaviour
     [SerializeField]
     private UnityEvent output;
 
-    public void Do()
+    public void Invoke()
     {
-        result?.SetValue(newValue.GetValue());
+        result.value = newValue.value;
         output.Invoke();
     }
 }

@@ -16,13 +16,13 @@ public class DestroyGameObject : MonoBehaviour
 
     public void Destroy()
     {
-        Destroy(objectReference.GetValue());
+        Destroy(objectReference.value);
         output.Invoke();
     }
 
     public void DestroyWithTime()
     {
-        Destroy(objectReference.GetValue(), time.GetValue());
+        Destroy(objectReference.value, time.value);
         output.Invoke();
     }
 }

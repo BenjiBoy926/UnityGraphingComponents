@@ -14,7 +14,7 @@ public class SetGameObject : MonoBehaviour
 
     public void Do()
     {
-        result?.SetValue(newValue.GetValue());
+        result.value = newValue.value;
         output.Invoke();
     }
 }

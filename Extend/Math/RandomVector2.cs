@@ -17,7 +17,7 @@ public class RandomVector2 : MonoBehaviour
 
     public void Invoke()
     {
-        result?.SetValue(Get(min.GetValue(), max.GetValue()));
+        result.value = Get(min.value, max.value);
         output.Invoke();
     }
 

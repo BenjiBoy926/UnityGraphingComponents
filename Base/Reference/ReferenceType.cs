@@ -3,5 +3,5 @@ using System.Collections;
 
 public enum ReferenceType
 {
-    Value, Reference
+    Value, DropReference, TagReference
 }

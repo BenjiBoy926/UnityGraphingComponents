@@ -11,15 +11,15 @@ public class InputButton : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown(inputName.GetValue()))
+        if(Input.GetButtonDown(inputName.value))
         {
             events.down.Invoke();
         }
-        if(Input.GetButton(inputName.GetValue()))
+        if(Input.GetButton(inputName.value))
         {
             events.stay.Invoke();
         }
-        if(Input.GetButtonUp(inputName.GetValue()))
+        if(Input.GetButtonUp(inputName.value))
         {
             events.up.Invoke();
         }

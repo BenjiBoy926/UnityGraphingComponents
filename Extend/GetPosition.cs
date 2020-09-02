@@ -13,7 +13,7 @@ public class GetPosition : MonoBehaviour
 
     public void Invoke()
     {
-        result.SetValue(input.GetValue().transform.position);
+        result.value = input.value.transform.position;
         output.Invoke();
     }
 }

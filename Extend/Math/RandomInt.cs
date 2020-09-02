@@ -16,7 +16,7 @@ public class RandomInt : MonoBehaviour
 
     public void Invoke()
     {
-        result?.SetValue(Random.Range(min.GetValue(), max.GetValue()));
+        result.value = Random.Range(min.value, max.value);
         output.Invoke();
     }
 }

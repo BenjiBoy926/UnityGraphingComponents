@@ -18,11 +18,11 @@ public class TimeControlledInvoker : MonoBehaviour
 
     private void Start()
     {
-        if (startReady.GetValue())
+        if (startReady.value)
         {
             minTimeUntilNextInvokation = 0;
         }
-        else minTimeUntilNextInvokation = time.GetValue();
+        else minTimeUntilNextInvokation = time.value;
     }
 
     public void Invoke()
@@ -30,7 +30,7 @@ public class TimeControlledInvoker : MonoBehaviour
         if(Time.time >= minTimeUntilNextInvokation)
         {
             ready.Invoke();
-            minTimeUntilNextInvokation = Time.time + time.GetValue();
+            minTimeUntilNextInvokation = Time.time + time.value;
         }
         else
         {

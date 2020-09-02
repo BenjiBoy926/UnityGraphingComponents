@@ -24,14 +24,14 @@ public class Glide2D : MonoBehaviour
 
     public void StartGliding()
     {
-        if(useRigidbody.GetValue())
+        if(useRigidbody.value)
         {
-            gliderRigidbody = glider.GetValue().GetComponent<Rigidbody2D>();
+            gliderRigidbody = glider.value.GetComponent<Rigidbody2D>();
         }
 
-        glideStart = glider.GetValue().transform.position;
-        glideEnd = position.GetValue();
-        glideInverseTime = 1.0f / time.GetValue();
+        glideStart = glider.value.transform.position;
+        glideEnd = position.value;
+        glideInverseTime = 1.0f / time.value;
         glideInterpolator = 0;
 
         isGliding = true;
@@ -58,13 +58,13 @@ public class Glide2D : MonoBehaviour
         {
             glideInterpolator += Time.deltaTime * glideInverseTime;
             
-            if(useRigidbody.GetValue())
+            if(useRigidbody.value)
             {
                 gliderRigidbody.position = Vector2.Lerp(glideStart, glideEnd, glideInterpolator);
             }
             else
             {
-                glider.GetValue().transform.position = Vector2.Lerp(glideStart, glideEnd, glideInterpolator);
+                glider.value.transform.position = Vector2.Lerp(glideStart, glideEnd, glideInterpolator);
             }
 
             events.step.Invoke();

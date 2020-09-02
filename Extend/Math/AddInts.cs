@@ -18,7 +18,7 @@ public class AddInts : MonoBehaviour
 
     public void Add()
     {
-        result?.SetValue(int1.GetValue() + int2.GetValue());
+        result.value = int1.value + int2.value;
         output.Invoke();
     }
 }

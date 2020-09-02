@@ -14,7 +14,7 @@ public class Switch : MonoBehaviour
 
     private void Awake()
     {
-        currentOutput = startingOutputIndex.GetValue() % outputs.Count;
+        currentOutput = startingOutputIndex.value % outputs.Count;
     }
 
     public void Invoke()

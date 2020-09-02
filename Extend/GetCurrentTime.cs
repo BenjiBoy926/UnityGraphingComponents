@@ -10,7 +10,7 @@ public class GetCurrentTime : MonoBehaviour
 
     public void Invoke()
     {
-        floatVariable?.SetValue(Time.time);
+        floatVariable.value = Time.time;
         output.Invoke();
     }
 }

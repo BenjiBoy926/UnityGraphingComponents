@@ -17,27 +17,27 @@ public class CompareInts : MonoBehaviour
 
     public void Compare()
     {
-        if(integer1.GetValue() == integer2.GetValue())
+        if(integer1.value == integer2.value)
         {
             events.equalTo.Invoke();
         }
-        if (integer1.GetValue() != integer2.GetValue())
+        if (integer1.value != integer2.value)
         {
             events.notEqualTo.Invoke();
         }
-        if (integer1.GetValue() < integer2.GetValue())
+        if (integer1.value < integer2.value)
         {
             events.lessThan.Invoke();
         }
-        if (integer1.GetValue() <= integer2.GetValue())
+        if (integer1.value <= integer2.value)
         {
             events.lessThanOrEqualTo.Invoke();
         }
-        if (integer1.GetValue() > integer2.GetValue())
+        if (integer1.value > integer2.value)
         {
             events.greaterThan.Invoke();
         }
-        if (integer1.GetValue() >= integer2.GetValue())
+        if (integer1.value >= integer2.value)
         {
             events.greaterThanOrEqualTo.Invoke();
         }

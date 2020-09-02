@@ -1,37 +1,69 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Variable<Type> : MonoBehaviour
+[System.Serializable]
+public class Variable<Type> : MonoBehaviour
 {
     // VARIABLES
-    protected Type value;
+    [SerializeField]
+    [Tooltip("The name of the variable this component represents")]
+    private string _variableName;
+
+    [SerializeField]
+    [Tooltip("The default value of the variable component")]
+    private Type _defaultValue;
+
+    [SerializeField]
+    [Tooltip("Event invoked when the value of the component changes")]
+    private UnityEvent _onValueChanged;
+
+    // PROPERTIES
+    private Type _value;
+    public Type value
+    {
+        get
+        {
+            return _value;
+        }
+        set
+        {
+            _value = value;
+            _onValueChanged.Invoke();
+        }
+    }
+    public string variableName
+    {
+        get
+        {
+            return _variableName;
+        }
+    }
+    public Type defaultValue
+    {
+        get
+        {
+            return _defaultValue;
+        }
+    }
+    public UnityEvent onValueChanged
+    {
+        get
+        {
+            return _onValueChanged;
+        }
+    }
 
     // FUNCTIONS
-
-    // Get/set the current value of the variable component
-    public Type GetValue()
+    private void Awake()
     {
-        return value;
+        value = defaultValue;
     }
-    public void SetValue(Type newValue)
-    {
-        value = newValue;
-        GetValueChangedEvent().Invoke();
-    }
-
-    // Get the name.  Get the default value.  Get the value changed event
-    // Abstract because each subclass needs to expose these in Unity's editor
-    public abstract string GetName();
-    public abstract Type GetDefaultValue();
-    public abstract UnityEvent GetValueChangedEvent();
-
     public void LogValue()
     {
         Debug.Log(ToString());
     }
-
     public override string ToString()
     {
-        return GetName() + "{" + value.ToString() + "}";
+        return name + "{" + value.ToString() + "}";
     }
 }

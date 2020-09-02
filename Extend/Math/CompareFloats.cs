@@ -16,27 +16,27 @@ public class CompareFloats : MonoBehaviour
 
     public void Compare()
     {
-        if (float1.GetValue() == float2.GetValue())
+        if (float1.value == float2.value)
         {
             events.equalTo.Invoke();
         }
-        if (float1.GetValue() != float2.GetValue())
+        if (float1.value != float2.value)
         {
             events.notEqualTo.Invoke();
         }
-        if (float1.GetValue() < float2.GetValue())
+        if (float1.value < float2.value)
         {
             events.lessThan.Invoke();
         }
-        if (float1.GetValue() <= float2.GetValue())
+        if (float1.value <= float2.value)
         {
             events.lessThanOrEqualTo.Invoke();
         }
-        if (float1.GetValue() > float2.GetValue())
+        if (float1.value > float2.value)
         {
             events.greaterThan.Invoke();
         }
-        if (float1.GetValue() >= float2.GetValue())
+        if (float1.value >= float2.value)
         {
             events.greaterThanOrEqualTo.Invoke();
         }
