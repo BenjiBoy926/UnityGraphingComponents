@@ -4,10 +4,8 @@ using System.Collections;
 
 public class InitializeEvents : MonoBehaviour
 {
-    [SerializeField]
-    private UnityEvent awake;
-    [SerializeField]
-    private UnityEvent start;
+    public UnityEvent awake;
+    public UnityEvent start;
 
     private void Awake()
     {

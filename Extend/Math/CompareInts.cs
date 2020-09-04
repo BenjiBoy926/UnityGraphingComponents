@@ -4,16 +4,12 @@ using System.Collections;
 
 public class CompareInts : MonoBehaviour
 {
-    [SerializeField]
     [Tooltip("First integer to compare")]
-    private IntReference integer1;
-
-    [SerializeField]
+    public Input<int> integer1;
     [Tooltip("Second integer to compare")]
-    private IntReference integer2;
+    public Input<int> integer2;
 
-    [SerializeField]
-    private CompareEvents events;
+    public CompareEvents events;
 
     public void Compare()
     {

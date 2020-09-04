@@ -3,13 +3,11 @@ using UnityEngine.Events;
 
 public class SetInt : MonoBehaviour
 {
-    [SerializeField]
-    private IntReference newValue;
-    [SerializeField]
-    private IntVariable result;
+    public Input<int> newValue;
+  
+    public Result<int> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {

@@ -4,13 +4,10 @@ using System.Collections;
 
 public class SetGameObject : MonoBehaviour
 {
-    [SerializeField]
-    private GameObjectReference newValue;
-    [SerializeField]
-    private GameObjectVariable result;
+    public Input<GameObject> newValue;
+    public Result<GameObject> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Do()
     {

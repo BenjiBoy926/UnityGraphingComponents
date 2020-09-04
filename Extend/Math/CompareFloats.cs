@@ -3,16 +3,13 @@ using System.Collections;
 
 public class CompareFloats : MonoBehaviour
 {
-    [SerializeField]
     [Tooltip("First integer to compare")]
-    private FloatReference float1;
-
-    [SerializeField]
+    public Input<float> float1;
     [Tooltip("Second integer to compare")]
-    private FloatReference float2;
+    public Input<float> float2;
 
     [SerializeField]
-    private CompareEvents events;
+    public CompareEvents events;
 
     public void Compare()
     {

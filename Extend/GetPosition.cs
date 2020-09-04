@@ -3,13 +3,11 @@ using UnityEngine.Events;
 
 public class GetPosition : MonoBehaviour
 {
-    [SerializeField]
-    private GameObjectReference input;
-    [SerializeField]
-    private Vector3Variable result;
+    public Input<GameObject> input;
+    
+    public Result<Vector3> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {

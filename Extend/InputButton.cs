@@ -3,11 +3,9 @@ using UnityEngine.Events;
 
 public class InputButton : MonoBehaviour
 {
-    [SerializeField]
-    private StringReference inputName;
+    public Input<string> inputName;
 
-    [SerializeField]
-    private ButtonEvents events;
+    public ButtonEvents events;
 
     private void Update()
     {

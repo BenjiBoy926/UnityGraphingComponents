@@ -3,10 +3,8 @@ using UnityEngine.Events;
 
 public class EventFolder : MonoBehaviour
 {
-    [SerializeField]
-    private UnityEvent input;
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent input;
+    public UnityEvent output;
 
     public void InvokeInput()
     {

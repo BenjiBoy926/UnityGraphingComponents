@@ -1,18 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
 
 public class TimeControlledInvoker : MonoBehaviour
 {
-    [SerializeField]
-    private FloatReference time;    // Minimum time between invokations
-    [SerializeField]
-    private BoolReference startReady;
+    public Input<float> time;    // Minimum time between invokations
+    public Input<bool> startReady;
 
-    [SerializeField]
-    private UnityEvent ready;
-    [SerializeField]
-    private UnityEvent notReady;
+    public UnityEvent ready;
+    public UnityEvent notReady;
 
     private float minTimeUntilNextInvokation;
 

@@ -4,14 +4,9 @@ using UnityEngine.Events;
 
 public class DebugComponent : MonoBehaviour
 {
-    [SerializeField]
-    private List<StringOrObject> objects;
+    public List<StringOrObject> objects;
 
-    [SerializeField]
-    private UnityEvent output;
-
-    [SerializeField]
-    private System.Type type;
+    public UnityEvent output;
 
     public void Log()
     {

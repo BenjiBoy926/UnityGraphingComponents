@@ -4,11 +4,8 @@ using System.Collections.Generic;
 
 public class Switch : MonoBehaviour
 {
-    [SerializeField]
-    private IntReference startingOutputIndex;
-
-    [SerializeField]
-    private List<UnityEvent> outputs;
+    public Input<int> startingOutputIndex;
+    public List<UnityEvent> outputs;
 
     private int currentOutput;
 

@@ -2,20 +2,18 @@
 
 public class Glide2D : MonoBehaviour
 {
-    [SerializeField]
-    private GameObjectReference glider;
-    [SerializeField]
-    private Vector2Reference position;
-    [SerializeField]
-    private FloatReference time;
-    [SerializeField]
-    private BoolReference useRigidbody;
+    // FIELDS
+    // public
+    public Input<GameObject> glider;
+    public Input<Vector2> position;
+    public Input<float> time;
+    public Input<bool> useRigidbody;
 
-    [SerializeField]
-    private ActionEvents events;
+    public ActionEvents events;
 
     private bool isGliding = false;
 
+    // private
     private Rigidbody2D gliderRigidbody;
     private Vector2 glideStart;
     private Vector2 glideEnd;

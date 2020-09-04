@@ -4,17 +4,12 @@ using System.Collections;
 
 public class AddInts : MonoBehaviour
 {
-    [SerializeField]
-    private IntReference int1;
+    public Input<int> int1;
+    public Input<int> int2; 
 
-    [SerializeField]
-    private IntReference int2; 
+    public Result<int> result;
 
-    [SerializeField]
-    private IntVariable result;
-
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Add()
     {

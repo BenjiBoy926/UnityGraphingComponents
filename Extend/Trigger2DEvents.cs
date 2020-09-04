@@ -4,11 +4,9 @@ using System.Collections;
 
 public class Trigger2DEvents : MonoBehaviour
 {
-    [SerializeField]
-    private GameObjectVariable otherGameObject;
-
-    [SerializeField]
-    private CollisionEvents events;
+    // FIELDS
+    public Result<GameObject> otherGameObject;
+    public CollisionEvents events;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

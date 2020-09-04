@@ -3,22 +3,15 @@ using UnityEngine.Events;
 
 public class Emitter2D : MonoBehaviour
 {
-    [SerializeField]
-    private GameObjectReference prefab;
-    [SerializeField]
-    private GameObjectReference parent;
-    [SerializeField]
-    private Vector2Reference origin;
-    [SerializeField]
-    private Vector2Reference direction;
-    [SerializeField]
-    private FloatReference speed;
+    public Input<GameObject> prefab;
+    public Input<GameObject> parent;
+    public Input<Vector2> origin;
+    public Input<Vector2> direction;
+    public Input<float> speed;
 
-    [SerializeField]
-    private GameObjectVariable clone;
+    public Result<GameObject> clone;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {
@@ -30,7 +23,7 @@ public class Emitter2D : MonoBehaviour
         {
             cloneRigidbody.velocity = direction.value.normalized * speed.value;
 
-            clone.value = instance;
+            if (clone != null) clone.value = instance;
             output.Invoke();
         }
     }

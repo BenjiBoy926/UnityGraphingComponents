@@ -4,13 +4,11 @@ using System.Collections;
 
 public class SetVector2 : MonoBehaviour
 {
-    [SerializeField]
-    private Vector2Reference newValue;
-    [SerializeField]
-    private Vector2Variable result;
+    public Input<Vector2> newValue;
+ 
+    public Result<Vector2> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {

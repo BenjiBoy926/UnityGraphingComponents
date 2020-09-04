@@ -3,16 +3,12 @@ using UnityEngine.Events;
 
 public class RandomInt : MonoBehaviour
 {
-    [SerializeField]
-    private IntReference min;
-    [SerializeField]
-    private IntReference max;
+    public Input<int> min;
+    public Input<int> max;
 
-    [SerializeField]
-    private IntVariable result;
+    public Result<int> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {

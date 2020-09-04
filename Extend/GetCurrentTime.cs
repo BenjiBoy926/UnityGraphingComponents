@@ -3,10 +3,9 @@ using UnityEngine.Events;
 
 public class GetCurrentTime : MonoBehaviour
 {
-    [SerializeField]
-    private FloatVariable floatVariable;
-    [SerializeField]
-    private UnityEvent output;
+    public Result<float> floatVariable;
+    
+    public UnityEvent output;
 
     public void Invoke()
     {

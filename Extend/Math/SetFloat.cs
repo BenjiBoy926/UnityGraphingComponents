@@ -4,13 +4,11 @@ using System.Collections;
 
 public class SetFloat : MonoBehaviour
 {
-    [SerializeField]
-    private FloatReference newValue;
-    [SerializeField]
-    private FloatVariable result;
+    public Input<float> newValue;
+    
+    public Result<float> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {

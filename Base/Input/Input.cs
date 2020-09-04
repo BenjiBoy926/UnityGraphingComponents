@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public abstract class Reference<Type>
+public class Input<Type>
 {
     // FIELDS
     [SerializeField]
     [Tooltip("Type of reference")]
-    private ReferenceType type;
-
-    [SerializeField]
-    [Tooltip("Game Object used to get the attached variable")]
-    private GameObject gameObject;
+    private InputType type;
 
     [SerializeField]
     [Tooltip("Value in the reference")]
     private Type directValue;
+
+    [SerializeField]
+    [Tooltip("Game Object used to get the attached variable")]
+    private Variable<Type> directReference;
+
+    [SerializeField]
+    [Tooltip("Variable with the Game Object to get the attached variable")]
+    private GameObjectVariable indirectReference;
 
     [SerializeField]
     [Tooltip("Tag used to find the game object with the attached variable")]
@@ -28,21 +32,22 @@ public abstract class Reference<Type>
         {
             switch (type)
             {
-                case ReferenceType.Value: return directValue;
-                case ReferenceType.DropReference: return GetVariableValue(gameObject);
-                case ReferenceType.TagReference:
-                    gameObject = GameObject.FindGameObjectWithTag(tag);
+                case InputType.DirectValue: return directValue;
+                case InputType.DirectReference: return directReference.value;
+                case InputType.IndirectReference: return GetVariableValue(indirectReference.value);
+                case InputType.TagReference:
+                    GameObject taggedGameObject = GameObject.FindGameObjectWithTag(tag);
                     
-                    if(gameObject != null)
+                    if(taggedGameObject != null)
                     {
-                        return GetVariableValue(gameObject);
+                        return GetVariableValue(taggedGameObject);
                     }
                     else
                     {
                         Debug.LogWarning("No game object with tag " + tag + " found in scene");
                         return default;
                     }
-                default: return value;
+                default: return directValue;
             }
         }
     }
@@ -57,7 +62,7 @@ public abstract class Reference<Type>
         }
         else
         {
-            Debug.LogWarning("Could not find a variable on GameObject named " + gameObject.name + " and tagged " + gameObject.tag);
+            Debug.LogWarning("Could not find a variable on GameObject named " + directReference.name + " and tagged " + directReference.tag);
             return default;
         }
     }

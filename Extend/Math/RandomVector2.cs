@@ -4,16 +4,12 @@ using System.Collections;
 
 public class RandomVector2 : MonoBehaviour
 {
-    [SerializeField]
-    private Vector2Reference min;
-    [SerializeField]
-    private Vector2Reference max;
+    public Input<Vector2> min;
+    public Input<Vector2> max;
 
-    [SerializeField]
-    private Vector2Variable result;
+    public Result<Vector2> result;
 
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Invoke()
     {

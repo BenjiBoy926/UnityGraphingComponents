@@ -1,20 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
 
 public class AddFloats : MonoBehaviour
 {
-    [SerializeField]
-    private FloatReference float1;
+    public Input<float> float1;
+    public Input<float> float2;
 
-    [SerializeField]
-    private FloatReference float2;
+    public Result<float> result;
 
-    [SerializeField]
-    private FloatVariable result;
-
-    [SerializeField]
-    private UnityEvent output;
+    public UnityEvent output;
 
     public void Add()
     {
