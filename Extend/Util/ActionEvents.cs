@@ -1,7 +1,7 @@
 ﻿using UnityEngine.Events;
 
 [System.Serializable]
-public struct ActionEvents
+public class ActionEvents
 {
     public UnityEvent start;
     public UnityEvent step;

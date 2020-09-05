@@ -2,7 +2,7 @@
 using System.Collections;
 
 [System.Serializable]
-public struct CollisionEvents
+public class CollisionEvents
 {
     public UnityEvent enter;
     public UnityEvent stay;

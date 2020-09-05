@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-public static class ReferenceDrawer
+public static class ReferenceDrawerUtility
 {
     public const float TYPE_WIDTH = 130f;
     public const float GENERIC_TYPENAME_MULTIPLIER = 10f;
@@ -13,14 +13,12 @@ public static class ReferenceDrawer
         EditorGUI.PropertyField(rect, property.FindPropertyRelative("type"), GUIContent.none);
     }
 
-    public static void OnGUIReference(Rect content, SerializedProperty property, int offset)
-    {
-        float typenameWidth = DisplayVariableGenericTypeName(content, property);
-
+    public static void OnGUIReference(Rect content, SerializedProperty property, string genericTypename, int offset)
+    {  
         Rect rect = new Rect(
             content.x + TYPE_WIDTH + EditorGUIUtility.standardVerticalSpacing,
             content.y,
-            content.width - TYPE_WIDTH - typenameWidth - EditorGUIUtility.standardVerticalSpacing,
+            content.width - TYPE_WIDTH - EditorGUIUtility.standardVerticalSpacing,
             content.height);
         int enumIndex = property.FindPropertyRelative("type").enumValueIndex;
 
@@ -38,11 +36,11 @@ public static class ReferenceDrawer
         }
     }
 
-    private static float DisplayVariableGenericTypeName(Rect content, SerializedProperty property)
+    // OBSOLETE
+    private static float DisplayVariableGenericTypeName(Rect content, string genericTypename)
     {
         // Display a label for the type of the object picker
-        string typeName = GetVariableGenericTypeName(property);
-        float typeWidth = GetVariableGenericTypeWidth(typeName);
+        float typeWidth = GetVariableGenericTypeWidth(genericTypename);
         Rect typeRect = new Rect(content.x + content.width - typeWidth, content.y, typeWidth, content.height);
         
         // Get the style for the type name
@@ -50,17 +48,9 @@ public static class ReferenceDrawer
         typeStyle.fontStyle = FontStyle.Bold;
         typeStyle.alignment = TextAnchor.MiddleCenter;
 
-        EditorGUI.LabelField(typeRect, "(" + typeName + ")", typeStyle);
+        EditorGUI.LabelField(typeRect, genericTypename, typeStyle);
         return typeWidth;
     }
-
-    private static string GetVariableGenericTypeName(SerializedProperty property)
-    {
-        System.Reflection.FieldInfo fieldInfo = property.serializedObject.targetObject.GetType().GetField(property.propertyPath);
-        if (fieldInfo != null) return fieldInfo.FieldType.GetGenericArguments()[0].Name;
-        else return "X";
-    }
-
     private static float GetVariableGenericTypeWidth(string type)
     {
         return type.Length * GENERIC_TYPENAME_MULTIPLIER;

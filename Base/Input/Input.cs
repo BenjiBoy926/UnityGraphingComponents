@@ -13,7 +13,7 @@ public class Input<Type>
     private Type directValue;
 
     [SerializeField]
-    [Tooltip("Game Object used to get the attached variable")]
+    [Tooltip("Variable used to get the value")]
     private Variable<Type> directReference;
 
     [SerializeField]
@@ -52,6 +52,7 @@ public class Input<Type>
         }
     }
 
+    // Try to get a variable value on a particular game object
     private Type GetVariableValue(GameObject gObject)
     {
         Variable<Type> variable = gObject.GetComponent<Variable<Type>>();
@@ -62,7 +63,7 @@ public class Input<Type>
         }
         else
         {
-            Debug.LogWarning("Could not find a variable on GameObject named " + directReference.name + " and tagged " + directReference.tag);
+            Debug.LogWarning("Could not find a variable on GameObject named " + gObject.name + " and tagged " + gObject.tag);
             return default;
         }
     }

@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 
 [System.Serializable]
-public struct BoolEvents
+public class BoolEvents
 {
     [Tooltip("Event invoked on return true")]
     public UnityEvent _true;

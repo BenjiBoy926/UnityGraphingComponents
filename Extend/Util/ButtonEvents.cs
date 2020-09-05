@@ -2,7 +2,7 @@
 using System.Collections;
 
 [System.Serializable]
-public struct ButtonEvents
+public class ButtonEvents
 {
     public UnityEvent down;
     public UnityEvent stay;

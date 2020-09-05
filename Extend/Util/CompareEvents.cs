@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections;
 
 [System.Serializable]
-public struct CompareEvents
+public class CompareEvents
 {
     [SerializeField]
     public UnityEvent equalTo;

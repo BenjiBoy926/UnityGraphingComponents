@@ -7,8 +7,8 @@ public class ResultDrawer : PropertyDrawer
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         Rect content = EditorGUI.PrefixLabel(position, label);
-        ReferenceDrawer.OnGUIType(content, property);
-        ReferenceDrawer.OnGUIReference(content, property, 0);
+        ReferenceDrawerUtility.OnGUIType(content, property);
+        ReferenceDrawerUtility.OnGUIReference(content, property, fieldInfo.FieldType.GetGenericArguments()[0].Name, 0);
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

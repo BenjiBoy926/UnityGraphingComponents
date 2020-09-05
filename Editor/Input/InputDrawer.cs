@@ -12,7 +12,7 @@ public class InputDrawer : PropertyDrawer
         Rect content = EditorGUI.PrefixLabel(prefixPosition, label);
 
         // Display the type drawer
-        ReferenceDrawer.OnGUIType(content, property);
+        ReferenceDrawerUtility.OnGUIType(content, property);
 
         if (property.FindPropertyRelative("type").enumValueIndex == 0)
         {
@@ -20,7 +20,7 @@ public class InputDrawer : PropertyDrawer
         }
         else
         {
-            ReferenceDrawer.OnGUIReference(content, property, 1);
+            ReferenceDrawerUtility.OnGUIReference(content, property, fieldInfo.FieldType.GetGenericArguments()[0].Name, 1);
         }
     }
 
@@ -45,9 +45,9 @@ public class InputDrawer : PropertyDrawer
         if (height <= GraphingEditorUtility.standardControlHeight)
         {
             Rect rect = new Rect(
-                content.x + ReferenceDrawer.TYPE_WIDTH + VALUE_BUFFER, 
+                content.x + ReferenceDrawerUtility.TYPE_WIDTH + VALUE_BUFFER, 
                 content.y, 
-                content.width - ReferenceDrawer.TYPE_WIDTH - VALUE_BUFFER, 
+                content.width - ReferenceDrawerUtility.TYPE_WIDTH - VALUE_BUFFER, 
                 height);
             EditorGUI.PropertyField(rect, value, GUIContent.none, true);
         }

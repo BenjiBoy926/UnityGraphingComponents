@@ -11,14 +11,13 @@ using System.Collections.Generic;
 [CustomPropertyDrawer(typeof(TagSelectorAttribute))]
 public class TagSelectorDrawer : PropertyDrawer
 {
-
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         if (property.propertyType == SerializedPropertyType.String)
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            var attrib = this.attribute as TagSelectorAttribute;
+            var attrib = attribute as TagSelectorAttribute;
 
             if (attrib.UseDefaultTagFieldDrawer)
             {
@@ -28,8 +27,10 @@ public class TagSelectorDrawer : PropertyDrawer
             {
                 //generate the taglist + custom tags
                 List<string> tagList = new List<string>();
+
                 tagList.Add("<NoTag>");
                 tagList.AddRange(UnityEditorInternal.InternalEditorUtility.tags);
+
                 string propertyString = property.stringValue;
                 int index = -1;
                 if (propertyString == "")

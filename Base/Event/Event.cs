@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Event : MonoBehaviour
+public class Event<InputPackageType, ResultPacakgeType> : MonoBehaviour
+    where InputPackageType : InputPackage 
+    where ResultPacakgeType : ResultPacakge
 {
-    public abstract void Invoke();
+    public InputPackageType inputs;
+    public ResultPacakgeType results;
 }
