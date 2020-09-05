@@ -50,6 +50,10 @@ public class Input<Type>
                 default: return directValue;
             }
         }
+        set
+        {
+            directValue = value;
+        }
     }
 
     // Try to get a variable value on a particular game object
