@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class FindGameObject : MonoBehaviour
+public class FindGameObjectWithTag : MonoBehaviour
 {
     [TagSelector]
     public string findTag;
-    public Input<string> findName;
 
     public Result<GameObject> firstResult;
     public Result<GameObject[]> allResults;
 
     public UnityEvent output;
 
-    public void FindFirst()
+    public void Find()
     {
         firstResult.value = GameObject.FindGameObjectWithTag(findTag);
         output.Invoke();
@@ -20,11 +19,6 @@ public class FindGameObject : MonoBehaviour
     public void FindAll()
     {
         SetResults(GameObject.FindGameObjectsWithTag(findTag));
-        output.Invoke();
-    }
-    public void FindByName()
-    {
-        firstResult.value = GameObject.Find(findName.value);
         output.Invoke();
     }
 

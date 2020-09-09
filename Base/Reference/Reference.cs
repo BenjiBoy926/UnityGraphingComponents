@@ -99,8 +99,8 @@ public abstract class Reference<Type>
         // If the redirect is indirect, or the type is not a GameObject or Component,
         // we'll get a variable with the generic type
         if (redirectType == RedirectType.Indirect ||
-            valueType.IsSameAsOrSubclassOf(typeof(GameObject)) || 
-            valueType.IsSameAsOrSubclassOf(typeof(Component)))
+            (!valueType.IsSameAsOrSubclassOf(typeof(GameObject)) &&
+            !valueType.IsSameAsOrSubclassOf(typeof(Component))))
         {
             return redirectObject.GetComponent<Variable<Type>>().value;
         }
