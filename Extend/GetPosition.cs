@@ -11,6 +11,11 @@ public class GetPosition : MonoBehaviour
 
     public void Invoke()
     {
+        if(input.value == null)
+        {
+            Debug.Log("Input value is null!");
+        }
+
         result.value = input.value.transform.position;
         output.Invoke();
     }
