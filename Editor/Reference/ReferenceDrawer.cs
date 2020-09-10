@@ -29,7 +29,7 @@ public static class ReferenceDrawer
                 // GUI for a direct value
                 case 0:
                     SerializedProperty direct = property.FindPropertyRelative("direct");
-                    EditorGUI.PropertyField(rect, direct);
+                    EditorGUI.PropertyField(rect, direct, true);
                     rect.y += EditorGUI.GetPropertyHeight(direct);
                     break;
                 // GUI for the indirect value
@@ -161,58 +161,5 @@ public static class ReferenceDrawer
         }
 
         return current;
-    }
-
-    public static void OnGUIType(Rect content, SerializedProperty property, bool typeofComponent)
-    {
-        // Calculate the content for the reference button toggle and the reference drawer
-        Rect rect = new Rect(content.x, content.y, TYPE_WIDTH, content.height);
-        SerializedProperty type = property.FindPropertyRelative("type");
-
-        // If not a reference type, display property as normal
-        if(!typeofComponent)
-        {
-            EditorGUI.PropertyField(rect, type, GUIContent.none);
-        }
-        // If this is a reference, remove the first enum option
-        else
-        {
-            int newValue = type.enumValueIndex - 1;
-            if(newValue < 0)
-            {
-                newValue = 0;
-            }
-
-            List<string> enumOptions = new List<string>(type.enumDisplayNames);
-
-            // Put in a popup with the first enum option removed
-            enumOptions.RemoveAt(0);
-            newValue = EditorGUI.Popup(rect, newValue, enumOptions.ToArray());
-
-            type.enumValueIndex = newValue + 1;
-        }
-    }
-
-    public static void OnGUIReference(Rect content, SerializedProperty property, bool typeofComponent)
-    {  
-        Rect rect = new Rect(
-            content.x + TYPE_WIDTH + EditorGUIUtility.standardVerticalSpacing,
-            content.y,
-            content.width - TYPE_WIDTH - EditorGUIUtility.standardVerticalSpacing,
-            content.height);
-        string directReferenceProperty = typeofComponent ? "directValue" : "directReference";
-
-        switch(property.FindPropertyRelative("type").enumValueIndex)
-        {
-            case 1:
-                EditorGUI.PropertyField(rect, property.FindPropertyRelative(directReferenceProperty), GUIContent.none);
-                break;
-            case 2:
-                EditorGUI.PropertyField(rect, property.FindPropertyRelative("indirectReference"), GUIContent.none);
-                break;
-            case 3:
-                EditorGUI.PropertyField(rect, property.FindPropertyRelative("tag"), GUIContent.none);
-                break;
-        }
     }
 }
