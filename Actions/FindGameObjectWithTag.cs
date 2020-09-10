@@ -26,7 +26,7 @@ public class FindGameObjectWithTag : MonoBehaviour
     {
         allResults.value = found;
 
-        if (found != null)
+        if (found.Length > 0)
         {
             firstResult.value = found[0];
         }

@@ -93,7 +93,7 @@ public abstract class Reference<Type>
 
     private Type GetRedirectedValue()
     {
-        System.Type valueType = direct.GetType();
+        System.Type valueType = typeof(Type);
         GameObject redirectObject = GetRedirectGameObject();
 
         // If the redirect is indirect, or the type is not a GameObject or Component,
