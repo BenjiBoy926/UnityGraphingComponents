@@ -5,12 +5,12 @@ public class Delay : MonoBehaviour
 {
     public Input<float> delay;
 
-    public UnityEvent awake;
+    public UnityEvent immediate;
     public UnityEvent output;
 
     public void Invoke()
     {
-        awake.Invoke();
+        immediate.Invoke();
 
         CancelInvoke();
         Invoke("DelayedInvoke", delay.value);
@@ -18,7 +18,7 @@ public class Delay : MonoBehaviour
 
     public void InvokeImmediately()
     {
-        awake.Invoke();
+        immediate.Invoke();
 
         CancelInvoke();
         DelayedInvoke();

@@ -56,7 +56,7 @@ public class Variable<Type> : MonoBehaviour
     // FUNCTIONS
     private void Awake()
     {
-        value = defaultValue;
+        _value = defaultValue;
     }
     public void LogValue()
     {
@@ -64,6 +64,6 @@ public class Variable<Type> : MonoBehaviour
     }
     public override string ToString()
     {
-        return name + "{" + value.ToString() + "}";
+        return _variableName + "{" + value.ToString() + "}";
     }
 }

@@ -2,16 +2,7 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class SetGameObject : MonoBehaviour
+public class SetGameObject : Set<GameObject>
 {
-    public Input<GameObject> newValue;
-    public Result<GameObject> result;
-
-    public UnityEvent output;
-
-    public void Do()
-    {
-        result.value = newValue.value;
-        output.Invoke();
-    }
+   
 }

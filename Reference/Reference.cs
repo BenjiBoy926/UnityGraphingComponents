@@ -137,20 +137,17 @@ public abstract class Reference<Type>
         }
 
         int i = 0;
-        Variable<GameObject> currentRedirectVariable;
+        Variable<GameObject> currentRedirectVariable = redirectObject.GetComponent<Variable<GameObject>>();
 
         // Repeately set the redirect object based on the GameObject variable
         // on each GameObject in the search chain
-        while(i < redirectDepth && redirectObject != null)
+        while(i < redirectDepth && currentRedirectVariable != null)
         {
+            // Update the redirect object
+            redirectObject = currentRedirectVariable.value;
+
+            // Update loop control variables
             currentRedirectVariable = redirectObject.GetComponent<Variable<GameObject>>();
-
-            if (redirectVariable != null)
-            {
-                redirectObject = redirectVariable.value;
-            }
-            else redirectObject = null;
-
             i++;
         }
 

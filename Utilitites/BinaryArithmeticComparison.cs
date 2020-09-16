@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum BinaryBooleanComparison
+public enum BinaryArithmeticComparison
 {
     EqualTo,
     NotEqual,
