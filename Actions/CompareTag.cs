@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class CompareTag : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class CompareTag : MonoBehaviour
     public string tagToCheck;
 
     [Tooltip("Events invoked after the tag is checked")]
-    public BoolEvents events;
+    public BoolEvents boolOutputs;
+
+    public UnityEvent output;
 
     public void Invoke()
     {
@@ -17,9 +20,11 @@ public class CompareTag : MonoBehaviour
         {
             if (gameObjectReference.value.CompareTag(tagToCheck))
             {
-                events._true.Invoke();
+                boolOutputs._true.Invoke();
             }
-            else events._false.Invoke();
+            else boolOutputs._false.Invoke();
         }
+
+        output.Invoke();
     }
 }
