@@ -2,6 +2,8 @@
 
 public abstract class Smooth<Type> : MonoBehaviour
 {
+    public AnimationCurve interpolationFunction;
+
     public Input<Type> start;
     public Input<Type> end;
     public Input<float> time;
@@ -32,7 +34,7 @@ public abstract class Smooth<Type> : MonoBehaviour
         {
             // Update the interpolator and lerp the value and invoke output
             interpolator = Mathf.Clamp01(interpolator + (Time.deltaTime / time.value));
-            result.value = Lerp(start.value, end.value, interpolator);
+            result.value = Lerp(start.value, end.value, interpolationFunction.Evaluate(interpolator));
             outputs.step.Invoke();
 
             active = interpolator < 1.0f;
