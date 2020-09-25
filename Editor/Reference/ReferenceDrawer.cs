@@ -7,52 +7,44 @@ public static class ReferenceDrawer
     public const float TYPE_WIDTH = 80f;
    
     public static void OnGUI(Rect position, SerializedProperty property, GUIContent label, 
-        ReferenceDrawerType drawerType, ReferenceDataType dataType, ref bool mainFoldout, ref bool advancedFoldout)
+        ReferenceDrawerType drawerType, ReferenceDataType dataType)
     {
-        // Get some important enum values, and starting rect
-        SerializedProperty referenceType = property.FindPropertyRelative("referenceType");
-        SerializedProperty gameObjectReferenceType = property.FindPropertyRelative("gameObjectReferenceType");
+        SerializedProperty mainFoldout = property.FindPropertyRelative("mainFoldout");
+        SerializedProperty advancedFoldout = property.FindPropertyRelative("advancedFoldout");
+
+        // Get starting rect
         Rect rect = new Rect(position.position, new Vector2(position.width, GraphingEditorUtility.standardControlHeight));
 
         // Put the foldout item
-        mainFoldout = EditorGUI.Foldout(rect, mainFoldout, label);
+        mainFoldout.boolValue = EditorGUI.Foldout(rect, mainFoldout.boolValue, label);
         rect.y += GraphingEditorUtility.standardControlHeight;
 
-        if (mainFoldout)
+        if (mainFoldout.boolValue)
         {
-            // Put the reference type
+            // Put the evaluation type
             EditorGUI.indentLevel++;
-            rect = OnGUIType(rect, property, drawerType);
+            rect = OnGUIEvaluationType(rect, property, drawerType);
 
-            switch(referenceType.enumValueIndex)
+            // Put the reference type
+            rect = OnGUIReferenceType(rect, property, drawerType);
+
+            switch(property.FindPropertyRelative("referenceType").enumValueIndex)
             {
                 // GUI for a direct value
                 case 0:
-                    SerializedProperty direct = property.FindPropertyRelative("direct");
-                    EditorGUI.PropertyField(rect, direct, true);
-                    rect.y += EditorGUI.GetPropertyHeight(direct);
+                    rect = OnGUIDirectValue(rect, property, drawerType);
                     break;
                 // GUI for the indirect value
                 case 1:
-                    EditorGUI.PropertyField(rect, property.FindPropertyRelative("indirect"));
-                    rect.y += GraphingEditorUtility.standardControlHeight;
+                    rect = OnGUIIndirectValue(rect, property, drawerType);
                     break;
                 // GUI for a redirected value
                 case 2:
-                    // Display game object reference
-                    EditorGUI.PropertyField(rect, gameObjectReferenceType);
-                    rect.y += GraphingEditorUtility.standardControlHeight;
-
-                    // Display drawer for game object variable or tag
-                    if (gameObjectReferenceType.enumValueIndex == 0)
-                    {
-                        EditorGUI.PropertyField(rect, property.FindPropertyRelative("redirectVariable"));
-                    }
-                    else EditorGUI.PropertyField(rect, property.FindPropertyRelative("redirectTag"));
-                    rect.y += GraphingEditorUtility.standardControlHeight;
+                    // Display redirected value options
+                    rect = OnGUIRedirectedValue(rect, property, drawerType);
 
                     // Display advanced options
-                    rect = OnGUIAdvancedOptions(rect, property, drawerType, dataType, ref advancedFoldout);
+                    rect = OnGUIAdvancedOptions(rect, property, drawerType, dataType);
 
                     break;
             }
@@ -62,22 +54,33 @@ public static class ReferenceDrawer
     }
 
     public static float GetPropertyHeight(SerializedProperty property, GUIContent content,  
-        ReferenceDrawerType drawerType, ReferenceDataType dataType, bool mainFoldout, bool advancedFoldout)
+        ReferenceDrawerType drawerType, ReferenceDataType dataType)
     {
-        // Account for the foldout line
+        // Get foldout values
+        bool mainFoldout = property.FindPropertyRelative("mainFoldout").boolValue;
+        bool advancedFoldout = property.FindPropertyRelative("advancedFoldout").boolValue;
+
+        // Start with the main foldout line
         float current = GraphingEditorUtility.standardControlHeight;
 
         if (mainFoldout)
         {
+            SerializedProperty evaluationType = property.FindPropertyRelative("evaluationType");
             SerializedProperty referenceType = property.FindPropertyRelative("referenceType");
+
+            // If this is an input, account for the evaluation type
+            if(drawerType == ReferenceDrawerType.Input)
+            {
+                current += GraphingEditorUtility.standardControlHeight;
+            }
 
             // Account for reference type height
             current += GraphingEditorUtility.standardControlHeight;
 
             // Account for value height
-            if (referenceType.enumValueIndex == 0)
+            if (referenceType.enumValueIndex == 0 && evaluationType.enumValueIndex == 0)
             {
-                current += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("direct"));
+                current += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("directValue"));
             }
             else current += GraphingEditorUtility.standardControlHeight;
 
@@ -104,7 +107,17 @@ public static class ReferenceDrawer
         return current;
     }
 
-    private static Rect OnGUIType(Rect content, SerializedProperty property, ReferenceDrawerType drawerType)
+    private static Rect OnGUIEvaluationType(Rect content, SerializedProperty property, ReferenceDrawerType drawerType)
+    {
+        if(drawerType == ReferenceDrawerType.Input)
+        {
+            EditorGUI.PropertyField(content, property.FindPropertyRelative("evaluationType"));
+            content.y += GraphingEditorUtility.standardControlHeight;
+        }
+        return content;
+    }
+
+    private static Rect OnGUIReferenceType(Rect content, SerializedProperty property, ReferenceDrawerType drawerType)
     {
         // Calculate the content for the reference button toggle and the reference drawer
         SerializedProperty referenceType = property.FindPropertyRelative("referenceType");
@@ -136,13 +149,83 @@ public static class ReferenceDrawer
             content.width, content.height);
     }
 
-    public static Rect OnGUIAdvancedOptions(Rect current, SerializedProperty property, 
-        ReferenceDrawerType drawerType, ReferenceDataType dataType, ref bool advancedFoldout)
+    private static Rect OnGUIDirectValue(Rect content, SerializedProperty property, ReferenceDrawerType drawerType)
     {
-        advancedFoldout = EditorGUI.Foldout(current, advancedFoldout, new GUIContent("Advanced"));
+        if(drawerType == ReferenceDrawerType.Input)
+        {
+            SerializedProperty evaluationType = property.FindPropertyRelative("evaluationType");
+
+            switch(evaluationType.enumValueIndex)
+            {
+                case 0:
+                    SerializedProperty directValue = property.FindPropertyRelative("directValue");
+                    EditorGUI.PropertyField(content, directValue, true);
+                    content.y += EditorGUI.GetPropertyHeight(directValue);
+                    break;
+                case 1:
+                    EditorGUI.PropertyField(content, property.FindPropertyRelative("directAction"));
+                    content.y += GraphingEditorUtility.standardControlHeight;
+                    break;
+            }
+        }
+
+        return content;
+    }
+
+    private static Rect OnGUIIndirectValue(Rect content, SerializedProperty property, ReferenceDrawerType drawerType)
+    {
+        if(drawerType == ReferenceDrawerType.Input)
+        {
+            SerializedProperty evaluationType = property.FindPropertyRelative("evaluationType");
+
+            switch (evaluationType.enumValueIndex)
+            {
+                case 0:
+                    EditorGUI.PropertyField(content, property.FindPropertyRelative("indirectValue"));
+                    content.y += GraphingEditorUtility.standardControlHeight;
+                    break;
+                case 1:
+                    EditorGUI.PropertyField(content, property.FindPropertyRelative("indirectAction"));
+                    content.y += GraphingEditorUtility.standardControlHeight;
+                    break;
+            }
+        }
+        else
+        {
+            EditorGUI.PropertyField(content, property.FindPropertyRelative("indirectValue"));
+            content.y += GraphingEditorUtility.standardControlHeight;
+        }
+
+        return content;
+    }
+
+    private static Rect OnGUIRedirectedValue(Rect content, SerializedProperty property, ReferenceDrawerType drawerType)
+    {
+        SerializedProperty gameObjectReferenceType = property.FindPropertyRelative("gameObjectReferenceType");
+
+        // Display game object reference
+        EditorGUI.PropertyField(content, gameObjectReferenceType);
+        content.y += GraphingEditorUtility.standardControlHeight;
+
+        // Display drawer for game object variable or tag
+        if (gameObjectReferenceType.enumValueIndex == 0)
+        {
+            EditorGUI.PropertyField(content, property.FindPropertyRelative("redirectVariable"));
+        }
+        else EditorGUI.PropertyField(content, property.FindPropertyRelative("redirectTag"));
+        content.y += GraphingEditorUtility.standardControlHeight;
+
+        return content;
+    }
+
+    private static Rect OnGUIAdvancedOptions(Rect current, SerializedProperty property, 
+        ReferenceDrawerType drawerType, ReferenceDataType dataType)
+    {
+        SerializedProperty advancedFoldout = property.FindPropertyRelative("advancedFoldout");
+        advancedFoldout.boolValue = EditorGUI.Foldout(current, advancedFoldout.boolValue, new GUIContent("Advanced"));
         current.y += GraphingEditorUtility.standardControlHeight;
 
-        if(advancedFoldout)
+        if(advancedFoldout.boolValue)
         {
             EditorGUI.indentLevel++;
 

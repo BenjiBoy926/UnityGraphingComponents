@@ -3,6 +3,11 @@
     Direct, Indirect, Redirected
 }
 
+public enum EvaluationType
+{
+    Value, Function
+}
+
 public enum GameObjectReferenceType
 {
     ByVariable, ByTag

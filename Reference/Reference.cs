@@ -5,6 +5,11 @@ public abstract class Reference<Type>
 {
     // FIELDS
     [SerializeField]
+    [Tooltip("If the reference evaluation is by value, the reference tries to get the direct value." +
+        " If the evaluation is by function, the reference tries to get an action that generates the value")]
+    private EvaluationType evaluationType;
+
+    [SerializeField]
     [Tooltip("Type of reference")]
     private ReferenceType referenceType = ReferenceType.Direct;
 
@@ -29,11 +34,19 @@ public abstract class Reference<Type>
 
     [SerializeField]
     [Tooltip("Value in the reference")]
-    private Type direct = default;
+    private Type directValue = default;
+
+    [SerializeField]
+    [Tooltip("The action that will generate the value when invoked")]
+    private Getter<Type> directAction;
 
     [SerializeField]
     [Tooltip("Variable used to get the value")]
-    private Variable<Type> indirect = null;
+    private Variable<Type> indirectValue = null;
+
+    [SerializeField]
+    [Tooltip("Variable used to get the action that generates the value when invoked")]
+    private Variable<Getter<Type>> indirectAction;
 
     [SerializeField]
     [Tooltip("Variable with the Game Object to get the attached variable")]
@@ -44,6 +57,11 @@ public abstract class Reference<Type>
     [TagSelector]
     private string redirectTag = "";
 
+    [SerializeField]
+    private bool mainFoldout;
+    [SerializeField]
+    private bool advancedFoldout;
+
     // PROPERTIES
     public Type value
     {
@@ -51,10 +69,10 @@ public abstract class Reference<Type>
         {
             switch(referenceType)
             {
-                case ReferenceType.Direct: return direct;
-                case ReferenceType.Indirect: return indirect.value;
+                case ReferenceType.Direct: return GetDirectValue();
+                case ReferenceType.Indirect: return GetIndirectValue();
                 case ReferenceType.Redirected: return GetRedirectedValue();
-                default: return direct;
+                default: return directValue;
             }
         }
         set
@@ -63,9 +81,9 @@ public abstract class Reference<Type>
             {
                 case ReferenceType.Direct:
                 case ReferenceType.Indirect:
-                    if(indirect != null)
+                    if(indirectValue != null)
                     {
-                        indirect.value = value;
+                        indirectValue.value = value;
                     }
                     break;
                 case ReferenceType.Redirected:
@@ -82,13 +100,31 @@ public abstract class Reference<Type>
                     }
                     break;
                 default: 
-                    if(indirect != null)
+                    if(indirectValue != null)
                     {
-                        indirect.value = value;
+                        indirectValue.value = value;
                     }
                     break;
             }
         }
+    }
+
+    private Type GetDirectValue()
+    {
+        if (evaluationType == EvaluationType.Value)
+        {
+            return directValue;
+        }
+        else return directAction.Get();
+    }
+
+    private Type GetIndirectValue()
+    {
+        if (evaluationType == EvaluationType.Value)
+        {
+            return indirectValue.value;
+        }
+        else return indirectAction.value.Get();
     }
 
     private Type GetRedirectedValue()
@@ -99,10 +135,15 @@ public abstract class Reference<Type>
         // If the redirect is indirect, or the type is not a GameObject or Component,
         // we'll get a variable with the generic type
         if (redirectType == RedirectType.Indirect ||
+            evaluationType == EvaluationType.Function ||
             (!valueType.IsSameAsOrSubclassOf(typeof(GameObject)) &&
             !valueType.IsSameAsOrSubclassOf(typeof(Component))))
         {
-            return redirectObject.GetComponent<Variable<Type>>().value;
+            if (evaluationType == EvaluationType.Value)
+            {
+                return redirectObject.GetComponent<Variable<Type>>().value;
+            }
+            else return redirectObject.GetComponent<Variable<Getter<Type>>>().value.Get();
         }
         // If the redirect type is direct, and this is a GameObject,
         // return the exact gameobject

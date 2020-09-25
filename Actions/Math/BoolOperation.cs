@@ -1,33 +1,18 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-
-public class BoolOperation : MonoBehaviour
+﻿public class BoolOperation : BasicGetterAction<bool>
 {
     public BoolOperator type;
 
     public Input<bool> input1;
     public Input<bool> input2;
 
-    public Result<bool> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override bool Get()
     {
-        switch(type)
+        switch (type)
         {
-            case BoolOperator.And:
-                result.value = input1.value && input2.value;
-                break;
-            case BoolOperator.Or:
-                result.value = input1.value || input2.value;
-                break;
-            case BoolOperator.Not:
-                result.value = !input1.value;
-                break;
-            default: result.value = input1.value; break;
+            case BoolOperator.And: return input1.value && input2.value;
+            case BoolOperator.Or: return input1.value || input2.value;
+            case BoolOperator.Not: return !input1.value;
+            default: return input1.value;
         }
-
-        output.Invoke();
     }
 }

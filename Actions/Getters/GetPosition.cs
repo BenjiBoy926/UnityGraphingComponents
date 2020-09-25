@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
-public class GetPosition : MonoBehaviour
+public class GetPosition : BasicGetterAction<Vector3>
 {
+    public Space space;
     public Input<GameObject> input;
-    
-    public Result<Vector3> result;
 
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector3 Get()
     {
-        result.value = input.value.transform.position;
-        output.Invoke();
+        if (space == Space.World)
+        {
+            return input.value.transform.position;
+        }
+        else return input.value.transform.localPosition;
     }
 }

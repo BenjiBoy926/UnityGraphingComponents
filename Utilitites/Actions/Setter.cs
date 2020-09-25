@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class Set<Type> : MonoBehaviour
+public class Setter<Type> : MonoBehaviour
 {
     public Input<Type> input;
 

@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class ConvertVector3ToVector2 : MonoBehaviour
+public class ConvertVector3ToVector2 : BasicGetterAction<Vector2>
 {
-    public Input<Vector3> vector3;
+    public Input<Vector3> input;
     
-    public Result<Vector2> vector2;
-    
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector2 Get()
     {
-        vector2.value = vector3.value;
-        output.Invoke();
+        return input.value;
     }
 }

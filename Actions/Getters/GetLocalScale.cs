@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GetLocalScale : MonoBehaviour
+public class GetLocalScale : BasicGetterAction<Vector3>
 {
     public Input<GameObject> input;
 
-    public Result<Vector3> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector3 Get()
     {
-        result.value = input.value.transform.localScale;
-        output.Invoke();
+        return input.value.transform.localScale;
     }
 }

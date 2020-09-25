@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GetDeltaTime : MonoBehaviour
+public class GetDeltaTime : BasicGetterAction<float>
 {
-    public Result<float> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override float Get()
     {
-        result.value = Time.deltaTime;
-        output.Invoke();
+        return Time.deltaTime;
     }
 }

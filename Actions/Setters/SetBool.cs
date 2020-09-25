@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetBool : Set<bool>
+public class SetBool : Setter<bool>
 {
     
 }

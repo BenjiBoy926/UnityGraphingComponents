@@ -1,19 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
-
-public class AddInts : MonoBehaviour
+﻿public class AddInts : BasicGetterAction<int>
 {
     public Input<int> int1;
-    public Input<int> int2; 
+    public Input<int> int2;
 
-    public Result<int> result;
-
-    public UnityEvent output;
-
-    public void Add()
+    public override int Get()
     {
-        result.value = int1.value + int2.value;
-        output.Invoke();
+        return int1.value + int2.value;
     }
 }

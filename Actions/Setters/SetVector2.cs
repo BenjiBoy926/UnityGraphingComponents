@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class SetVector2 : Set<Vector2>
+public class SetVector2 : Setter<Vector2>
 {
     
 }

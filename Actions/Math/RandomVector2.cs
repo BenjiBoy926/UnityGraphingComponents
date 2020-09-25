@@ -1,20 +1,13 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections;
 
-public class RandomVector2 : MonoBehaviour
+public class RandomVector2 : BasicGetterAction<Vector2>
 {
     public Input<Vector2> min;
     public Input<Vector2> max;
 
-    public Result<Vector2> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector2 Get()
     {
-        result.value = Get(min.value, max.value);
-        output.Invoke();
+        return Get(min.value, max.value);
     }
 
     public static Vector2 Get(Vector2 min, Vector2 max)

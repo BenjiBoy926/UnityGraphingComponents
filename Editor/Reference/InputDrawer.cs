@@ -15,12 +15,12 @@ public class InputDrawer : PropertyDrawer
             genericType.IsSameAsOrSubclassOf(typeof(Component)))
         {
             ReferenceDrawer.OnGUI(position, property, label, ReferenceDrawerType.Input, 
-                ReferenceDataType.GameObjectOrComponent, ref mainFoldout, ref advancedFoldout);
+                ReferenceDataType.GameObjectOrComponent);
         }
         else
         {
             ReferenceDrawer.OnGUI(position, property, label, ReferenceDrawerType.Input, 
-                ReferenceDataType.NeitherGameObjectNorComponent, ref mainFoldout, ref advancedFoldout);
+                ReferenceDataType.NeitherGameObjectNorComponent);
         }
         
     }
@@ -33,12 +33,12 @@ public class InputDrawer : PropertyDrawer
             genericType.IsSameAsOrSubclassOf(typeof(Component)))
         {
             return ReferenceDrawer.GetPropertyHeight(property, label, ReferenceDrawerType.Input,
-                ReferenceDataType.GameObjectOrComponent, mainFoldout, advancedFoldout);
+                ReferenceDataType.GameObjectOrComponent);
         }
         else
         {
             return ReferenceDrawer.GetPropertyHeight(property, label, ReferenceDrawerType.Input,
-                ReferenceDataType.NeitherGameObjectNorComponent, mainFoldout, advancedFoldout);
+                ReferenceDataType.NeitherGameObjectNorComponent);
         }
     }
 }

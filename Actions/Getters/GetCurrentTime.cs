@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
-public class GetCurrentTime : MonoBehaviour
+public class GetCurrentTime : BasicGetterAction<float>
 {
-    public Result<float> floatVariable;
-    
-    public UnityEvent output;
-
-    public void Invoke()
+    public override float Get()
     {
-        floatVariable.value = Time.time;
-        output.Invoke();
+        return Time.time;
     }
 }

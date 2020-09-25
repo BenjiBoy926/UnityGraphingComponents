@@ -2,18 +2,13 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class ScaleVector3 : MonoBehaviour
+public class ScaleVector3 : BasicGetterAction<Vector3>
 {
     public Input<Vector3> input;
     public Input<float> scalar;
 
-    public Result<Vector3> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector3 Get()
     {
-        result.value = input.value * scalar.value;
-        output.Invoke();
+        return input.value * scalar.value;
     }
 }

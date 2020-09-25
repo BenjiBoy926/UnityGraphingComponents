@@ -1,18 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class MakeVector2Int : MonoBehaviour
+public class MakeVector2Int : BasicGetterAction<Vector2Int>
 {
     public Input<int> x;
     public Input<int> y;
 
-    public Result<Vector2Int> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector2Int Get()
     {
-        result.value = new Vector2Int(x.value, y.value);
-        output.Invoke();
+        return new Vector2Int(x.value, y.value);
     }
 }
