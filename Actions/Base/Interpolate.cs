@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 
-public abstract class Interpolate<Type> : MonoBehaviour
+public abstract class Interpolate<Type> : Supplier<Type>
 {
-    public AnimationCurve interpolationFunction;
-
-    public Input<Type> start;
-    public Input<Type> end;
+    public Input<Type> min;
+    public Input<Type> max;
     public Input<float> time;
+    public Input<AnimationCurve> function;
 
     public Result<Type> result;
 
@@ -34,7 +33,7 @@ public abstract class Interpolate<Type> : MonoBehaviour
         {
             // Update the interpolator and lerp the value and invoke output
             interpolator = Mathf.Clamp01(interpolator + (Time.deltaTime / time.value));
-            result.value = Lerp(start.value, end.value, interpolationFunction.Evaluate(interpolator));
+            result.value = Get();
             outputs.step.Invoke();
 
             active = interpolator < 1.0f;
@@ -44,6 +43,11 @@ public abstract class Interpolate<Type> : MonoBehaviour
                 StopSmoothing();
             }
         }
+    }
+
+    public override Type Get()
+    {
+        return Lerp(min.value, max.value, function.value.Evaluate(interpolator));
     }
 
     protected abstract Type Lerp(Type a, Type b, float t);

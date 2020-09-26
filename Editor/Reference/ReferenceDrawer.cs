@@ -212,7 +212,7 @@ public static class ReferenceDrawer
         {
             EditorGUI.PropertyField(content, property.FindPropertyRelative("redirectVariable"));
         }
-        else EditorGUI.PropertyField(content, property.FindPropertyRelative("redirectTag"));
+        else EditorGUI.PropertyField(content, property.FindPropertyRelative("redirectAction"));
         content.y += GraphingEditorUtility.standardControlHeight;
 
         return content;

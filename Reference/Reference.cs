@@ -15,21 +15,21 @@ public abstract class Reference<Type>
 
     [SerializeField]
     [Tooltip("In the case of a redirected reference, determine" +
-        "if the GameObject will be obtained through a variable" +
-        "or by searching for the given tag")]
-    protected GameObjectReferenceType gameObjectReferenceType = GameObjectReferenceType.ByVariable;
+        " if the GameObject will be obtained through a variable" +
+        " or by invoking an action that returns a Game Object")]
+    protected EvaluationType gameObjectReferenceType = EvaluationType.Value;
 
     [SerializeField]
-    [Tooltip("Type of a redirect reference, in the case of a Unity GameObject or Component." +
-        "A direct redirect searches for the component on the GameObject or gets the GameObject directly," +
-        "an indirect redirect searches for a variable with the component type on the GameObject")]
+    [Tooltip("Type of a redirect reference, in the case of a Unity GameObject or Component reference." +
+        " A direct redirect searches for the component on the GameObject or gets the GameObject directly," +
+        " an indirect redirect searches for a variable with the component type on the GameObject")]
     protected RedirectType redirectType = RedirectType.Direct;
 
     [SerializeField]
-    [Tooltip("Depth of the redirection. " +
-        "Zero means directly search the GameObject in the variable or with the tag," +
-        "one means search the GameObject for a GameObject variable and search on THAT GameObject for the value," +
-        "and so on")]
+    [Tooltip("Depth of the redirection." +
+        " Zero means directly search the GameObject in the variable or with the tag," +
+        " one means search the GameObject for a GameObject variable and search on THAT GameObject for the value," +
+        " and so on")]
     protected int redirectDepth = 0;
 
     [SerializeField]
@@ -53,9 +53,8 @@ public abstract class Reference<Type>
     protected GameObjectVariable redirectVariable = null;
 
     [SerializeField]
-    [Tooltip("Tag used to find the game object with the attached variable")]
-    [TagSelector]
-    protected string redirectTag = "";
+    [Tooltip("Action used to get the Game Object with the attached variable")]
+    protected Supplier<GameObject> redirectAction;
 
     [SerializeField]
     private bool mainFoldout;
@@ -69,11 +68,11 @@ public abstract class Reference<Type>
         // Get the GameObject to use for the redirect
         switch (gameObjectReferenceType)
         {
-            case GameObjectReferenceType.ByVariable:
+            case EvaluationType.Value:
                 redirectObject = redirectVariable.value;
                 break;
-            case GameObjectReferenceType.ByTag:
-                redirectObject = GameObject.FindGameObjectWithTag(redirectTag);
+            case EvaluationType.Function:
+                redirectObject = redirectAction.Get();
                 break;
             default:
                 redirectObject = redirectVariable.value;

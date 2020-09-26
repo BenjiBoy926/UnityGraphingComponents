@@ -2,7 +2,7 @@
 
 public class IntOperation : SupplierAction<int>
 {
-    public NumericOperation operation;
+    public BinaryArithmeticOperation operation;
     public Input<int> _operator;
     public Input<int> operand;
 
@@ -10,12 +10,10 @@ public class IntOperation : SupplierAction<int>
     {
         switch (operation)
         {
-            case NumericOperation.Add: return _operator.value + operand.value;
-            case NumericOperation.Subtract: return _operator.value - operand.value;
-            case NumericOperation.Multiply: return _operator.value * operand.value;
-            case NumericOperation.Divide: return _operator.value / operand.value;
-            case NumericOperation.Increment: return _operator.value + 1;
-            case NumericOperation.Decrement: return _operator.value - 1;
+            case BinaryArithmeticOperation.Add: return _operator.value + operand.value;
+            case BinaryArithmeticOperation.Subtract: return _operator.value - operand.value;
+            case BinaryArithmeticOperation.Multiply: return _operator.value * operand.value;
+            case BinaryArithmeticOperation.Divide: return _operator.value / operand.value;
             default: return _operator.value;
         }
     }
