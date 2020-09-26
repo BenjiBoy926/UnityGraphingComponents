@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GetLocalScale : BasicGetterAction<Vector3>
+public class GetLocalScale : SupplierAction<Vector3>
 {
     public Input<GameObject> input;
 

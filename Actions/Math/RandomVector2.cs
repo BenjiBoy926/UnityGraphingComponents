@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RandomVector2 : BasicGetterAction<Vector2>
+public class RandomVector2 : SupplierAction<Vector2>
 {
     public Input<Vector2> min;
     public Input<Vector2> max;

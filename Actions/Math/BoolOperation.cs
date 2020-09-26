@@ -1,4 +1,4 @@
-﻿public class BoolOperation : BasicGetterAction<bool>
+﻿public class BoolOperation : SupplierAction<bool>
 {
     public BoolOperator type;
 

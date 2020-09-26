@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GetPosition : BasicGetterAction<Vector3>
+public class GetPosition : SupplierAction<Vector3>
 {
     public Space space;
     public Input<GameObject> input;

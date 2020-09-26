@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class IntOperation : BasicGetterAction<int>
+public class IntOperation : SupplierAction<int>
 {
     public NumericOperation operation;
     public Input<int> _operator;

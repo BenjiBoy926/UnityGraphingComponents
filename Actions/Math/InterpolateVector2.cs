@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SmoothVector2 : Smooth<Vector2>
+public class InterpolateVector2 : Interpolate<Vector2>
 {
     protected override Vector2 Lerp(Vector2 a, Vector2 b, float t)
     {

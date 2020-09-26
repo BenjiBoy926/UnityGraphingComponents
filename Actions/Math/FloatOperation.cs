@@ -1,4 +1,4 @@
-﻿public class FloatOperation : BasicGetterAction<float>
+﻿public class FloatOperation : SupplierAction<float>
 {
     public NumericOperation operation;
     public Input<float> _operator;

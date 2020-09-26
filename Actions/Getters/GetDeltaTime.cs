@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GetDeltaTime : BasicGetterAction<float>
+public class GetDeltaTime : SupplierAction<float>
 {
     public override float Get()
     {

@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class ScaleVector3 : BasicGetterAction<Vector3>
+public class ScaleVector3 : SupplierAction<Vector3>
 {
     public Input<Vector3> input;
     public Input<float> scalar;

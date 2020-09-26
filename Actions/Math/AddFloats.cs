@@ -1,4 +1,4 @@
-﻿public class AddFloats : BasicGetterAction<float>
+﻿public class AddFloats : SupplierAction<float>
 {
     public Input<float> float1;
     public Input<float> float2;

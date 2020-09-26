@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-public class BasicGetterAction<TResult> : Getter<TResult>
+public class SupplierAction<TResult> : Supplier<TResult>
 {
     public Result<TResult> result;
 

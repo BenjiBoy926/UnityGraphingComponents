@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GetCurrentTime : BasicGetterAction<float>
+public class GetCurrentTime : SupplierAction<float>
 {
     public override float Get()
     {

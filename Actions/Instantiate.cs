@@ -1,23 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class Instantiate : MonoBehaviour
+public class Instantiate : SupplierAction<GameObject>
 { 
     public Input<GameObject> prefab;
     public Input<GameObject> parent;
     public Input<Vector3> localOrigin;
 
-    public Result<GameObject> clone;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override GameObject Get()
     {
         Transform cloneParent = parent.value != null ? parent.value.transform : null;
         Vector3 worldPosition = cloneParent != null ? cloneParent.position + localOrigin.value : localOrigin.value;
-        GameObject instance = Instantiate(prefab.value, worldPosition, prefab.value.transform.rotation, cloneParent);
-
-        clone.value = instance;
-        output.Invoke();
+        return Instantiate(prefab.value, worldPosition, prefab.value.transform.rotation, cloneParent);
     }
 }

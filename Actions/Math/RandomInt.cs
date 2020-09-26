@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class RandomInt : BasicGetterAction<int>
+public class RandomInt : SupplierAction<int>
 {
     public Input<int> min;
     public Input<int> max;

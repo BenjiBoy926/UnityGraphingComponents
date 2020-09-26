@@ -1,74 +1,35 @@
 ﻿using UnityEngine;
 
-public class Iterate : MonoBehaviour
+public class Iterate : Supplier<int>
 {
     // FIELDS
     // Public
     public Input<int> start;
     public Input<int> end;
+
     public Result<int> current;
+
     public ActionEvents outputs;
 
     // Private
-    private int currentValue;
-    private bool activated = false;
+    private int currentValue = 0;
 
     // INTERFACE
-    public void IterateNext()
+    public void Invoke()
     {
-        if(!activated)
+        outputs.start.Invoke();
+
+        for(currentValue = start.value; currentValue < end.value; currentValue++)
         {
-            Activate();
+            current.value = currentValue;
+            outputs.step.Invoke();
         }
 
-        if(currentValue == start.value)
-        {
-            outputs.start.Invoke();
-        }
-
-        outputs.step.Invoke();
-        IncrementCurrent();
-
-        if(currentValue == start.value)
-        {
-            outputs.stop.Invoke();
-        }
-    }
-    public void IterateAllRemaining()
-    {
-        int remaining = end.value - currentValue;
-
-        while(remaining > 0)
-        {
-            IterateNext();
-            remaining--;
-        }
-    }
-    public void IterateAll()
-    {
-        SetCurrent(start.value);
-        IterateAllRemaining();
+        outputs.stop.Invoke();
     }
 
-    // HELPERS
-    private void Activate()
+    public override int Get()
     {
-        SetCurrent(start.value);
-        activated = true;
-    }
-    private void SetCurrent(int value)
-    {
-        // If the value exceeds the end value, set it back
-        if(value >= end.value)
-        {
-            value -= end.value;
-        }
-
-        current.value = value;
-        currentValue = value;
-    }
-    private void IncrementCurrent()
-    {
-        SetCurrent(currentValue + 1);
+        return currentValue;
     }
 }

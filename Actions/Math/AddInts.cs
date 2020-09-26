@@ -1,4 +1,4 @@
-﻿public class AddInts : BasicGetterAction<int>
+﻿public class AddInts : SupplierAction<int>
 {
     public Input<int> int1;
     public Input<int> int2;

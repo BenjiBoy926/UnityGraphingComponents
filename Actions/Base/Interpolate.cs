@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Smooth<Type> : MonoBehaviour
+public abstract class Interpolate<Type> : MonoBehaviour
 {
     public AnimationCurve interpolationFunction;
 

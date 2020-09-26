@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class ConvertScreenToWorld : MonoBehaviour
+public class ConvertScreenToWorld : SupplierAction<Vector3>
 {
     public enum ScreenToWorldConversionType
     {
@@ -9,39 +9,31 @@ public class ConvertScreenToWorld : MonoBehaviour
         WorldToScreen
     }
 
-    public bool normalized;
     public ScreenToWorldConversionType type;
+    public bool normalized;
 
     public Input<Camera> viewport;
     public Input<Vector3> input;
 
-    public Result<Vector3> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override Vector3 Get()
     {
-        switch(type)
+        switch (type)
         {
             case ScreenToWorldConversionType.ScreenToWorld:
                 if (normalized)
                 {
-                    result.value = viewport.value.ViewportToWorldPoint(input.value);
+                    return viewport.value.ViewportToWorldPoint(input.value);
                 }
-                else result.value = viewport.value.ScreenToWorldPoint(input.value);
-                break;
+                else return viewport.value.ScreenToWorldPoint(input.value);
+
             case ScreenToWorldConversionType.WorldToScreen:
                 if (normalized)
                 {
-                    result.value = viewport.value.WorldToViewportPoint(input.value);
+                    return viewport.value.WorldToViewportPoint(input.value);
                 }
-                else result.value = viewport.value.WorldToScreenPoint(input.value);
-                break;
-            default:
-                result.value = viewport.value.ScreenToWorldPoint(input.value);
-                break;
-        }
+                else return viewport.value.WorldToScreenPoint(input.value);
 
-        output.Invoke();
+            default: return viewport.value.ScreenToWorldPoint(input.value);
+        }
     }
 }

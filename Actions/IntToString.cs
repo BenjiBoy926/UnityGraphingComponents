@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class IntToString : MonoBehaviour
+public class IntToString : SupplierAction<string>
 {
     public Input<int> integer;
 
-    public Result<string> result;
-
-    public UnityEvent output;
-
-    public void Invoke()
+    public override string Get()
     {
-        result.value = integer.value.ToString();
-        output.Invoke();
+        return integer.value.ToString();
     }
 }
