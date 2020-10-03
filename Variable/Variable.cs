@@ -11,7 +11,7 @@ public class Variable<Type> : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The default value of the variable component")]
-    private Type _defaultValue;
+    private Input<Type> _defaultValue;
 
     [SerializeField]
     [Tooltip("Event invoked when the value of the component changes")]
@@ -42,7 +42,7 @@ public class Variable<Type> : MonoBehaviour
     {
         get
         {
-            return _defaultValue;
+            return _defaultValue.value;
         }
     }
     public UnityEvent onValueChanged

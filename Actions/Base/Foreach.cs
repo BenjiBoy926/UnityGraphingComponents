@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Foreach<Type> : Supplier<Type>
+public class Foreach<Type> : Function<Type>
 {
     // FIELDS
     // public

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SetColorAlpha : SupplierAction<Color>
+public class SetColorAlpha : Function<Color>
 {
     public Input<Color> input;
     public Input<float> newAlpha;

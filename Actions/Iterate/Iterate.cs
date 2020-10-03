@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Iterate : Supplier<int>
+public class Iterate : Function<int>
 {
     // FIELDS
     // Public

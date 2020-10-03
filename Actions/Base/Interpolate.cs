@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Interpolate<Type> : Supplier<Type>
+public abstract class Interpolate<Type> : Function<Type>
 {
     public Input<Type> min;
     public Input<Type> max;
