@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-public class Glide2D : MonoBehaviour
+public class Glide2D : Action
 {
     // FIELDS
     // public
@@ -19,6 +20,19 @@ public class Glide2D : MonoBehaviour
     private Vector2 glideEnd;
     private float glideInverseTime;
     private float glideInterpolator;
+
+    // PROPERTIES
+    public override TriggerPackage triggers
+    {
+        get
+        {
+            return new TriggerPackage(new Dictionary<string, Trigger>()
+            {
+                { "Start", new Trigger(StartGliding) },
+                { "Stop", new Trigger(StopGliding) }
+            });
+        }
+    }
 
     public void StartGliding()
     {
