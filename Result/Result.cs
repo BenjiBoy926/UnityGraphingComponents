@@ -43,6 +43,7 @@ public class Result<Type>
     }
 
     // CONSTRUCTORS
+    public Result() : this(default(Variable<Type>)) { }
     public Result(Variable<Type> var) : this(ResultType.Variable, var, null) { }
     public Result(Function<Variable<Type>> f) : this(ResultType.Function, null, f) { }
     public Result(Result<Type> other) : this(other.type, other.variable, other.function) { }

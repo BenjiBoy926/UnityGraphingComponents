@@ -1,22 +1,16 @@
 ﻿[System.Serializable]
-public class OutputPackage
+public class OutputPackage : NamedItems<OutputList>
 {
-    // FIELDS
-    [UnityEngine.SerializeField]
-    private OutputList[] outputs;
-    [UnityEngine.SerializeField]
-    private string[] outputNames;
-
     // CONSTRUCTORS
-    public OutputPackage(string[] oN)
+    public OutputPackage(params string[] n)
     {
-        outputNames = oN;
+        names = n;
     }
 
     // METHODS
     public void Invoke(string name)
     {
-        int index = System.Array.FindIndex(outputNames, i => name == i);
-        outputs[index].Invoke();
+        OutputList outputs = GetItem(name);
+        outputs.Invoke();
     }
 }

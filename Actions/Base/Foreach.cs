@@ -1,23 +1,30 @@
-﻿using UnityEngine;
-
-public class Foreach<Type> : Function<Type>
+﻿public class Foreach<Type> : Action
 {
     // FIELDS
-    // public
+    // PUBLIC
+    // inputs
     public Input<Type[]> items;
 
+    // results
     public Result<Type> currentValue;
     public Result<int> currentIndex;
 
-    public ActionEvents outputs;
+    // outputs
+    public OutputPackage _outputs = new OutputPackage("Start", "Step", "Stop");
 
+    // PRIVATE
     private Type current;
 
+    // PROPERTIES
+    public override TriggerPackage triggers => new TriggerPackage(new TriggerPackage.Item("Invoke", Invoke));
+    public override OutputPackage outputs => _outputs;
+
+    // METHODS
     public void Invoke()
     {
         Type[] itemsStored = items.value;
 
-        outputs.start.Invoke();
+        outputs.Invoke("Start");
 
         for(int i = 0; i < itemsStored.Length; i++)
         {
@@ -29,14 +36,9 @@ public class Foreach<Type> : Function<Type>
             currentIndex.value = i;
 
             // Invoke step function
-            outputs.step.Invoke();
+            outputs.Invoke("Step");
         }
 
-        outputs.stop.Invoke();
-    }
-
-    public override Type Get()
-    {
-        return current;
+        outputs.Invoke("Stop");
     }
 }

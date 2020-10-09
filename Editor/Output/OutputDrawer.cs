@@ -38,30 +38,43 @@ public class OutputDrawer : PropertyDrawer
         {
             // Get the object reference as an action
             Action action = (Action)actionObject;
-            int totalTriggers = action.triggers.triggers.Count;
-            string[] availableTriggers = new string[totalTriggers];
-            
-            // Copy trigger names into the array
-            action.triggers.triggers.Keys.CopyTo(availableTriggers, 0);
+            TriggerPackage triggers = action.triggers;
 
-            // Setup a popup editor
-            int popupIndex = System.Array.FindIndex(availableTriggers, t => triggerName.stringValue == t);
-
-            // If current trigger name is not in the array, set index to 0
-            if(popupIndex < 0)
+            if(triggers != null)
             {
-                popupIndex = 0;
+                int totalTriggers = triggers.triggers.Count;
+
+                if (totalTriggers > 0)
+                {
+                    string[] availableTriggers = new string[totalTriggers];
+
+                    // Copy trigger names into the array
+                    action.triggers.triggers.Keys.CopyTo(availableTriggers, 0);
+
+                    // Setup a popup editor
+                    int popupIndex = System.Array.FindIndex(availableTriggers, t => triggerName.stringValue == t);
+
+                    // If current trigger name is not in the array, set index to 0
+                    if (popupIndex < 0)
+                    {
+                        popupIndex = 0;
+                    }
+
+                    popupIndex = EditorGUI.Popup(rect, popupIndex, availableTriggers);
+
+                    // Assign selection back into property
+                    triggerName.stringValue = availableTriggers[popupIndex];
+                }
+                else OnGUIEmptyPopup(rect, triggerName);
             }
-
-            popupIndex = EditorGUI.Popup(rect, popupIndex, availableTriggers);
-
-            // Assign selection back into property
-            triggerName.stringValue = availableTriggers[popupIndex];
+            else OnGUIEmptyPopup(rect,triggerName);
         }
-        else
-        {
-            triggerName.stringValue = "";
-            EditorGUI.Popup(rect, 0, new string[] { "" });
-        }
+        else OnGUIEmptyPopup(rect, triggerName);
+    }
+
+    private void OnGUIEmptyPopup(Rect rect, SerializedProperty triggerName)
+    {
+        triggerName.stringValue = "";
+        EditorGUI.Popup(rect, 0, new string[] { "" });
     }
 }

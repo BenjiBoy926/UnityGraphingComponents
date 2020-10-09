@@ -1,19 +1,8 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Input<Type>
+public class Input<Type> : BaseInput
 {
-    // TYPEDEFS
-    public enum InputType
-    {
-        Value, Variable, Function
-    }
-
-    // FIELDS
-    [SerializeField]
-    [Tooltip("Input type")]
-    private InputType type;
-
     [SerializeField]
     [Tooltip("Value of the input")]
     private Type _value;
@@ -42,12 +31,14 @@ public class Input<Type>
     }
 
     // CONSTRUCTORS
+    public Input() : this(default(Type)) { }
     public Input(Type v) : this(InputType.Value, v, null, null) { }
     public Input(Variable<Type> var) : this(InputType.Variable, default, var, null) { }
     public Input(Function<Type> f) : this(InputType.Function, default, null, f) { }
     public Input(Input<Type> other) : this(other.type, other._value, other.variable, other.function) { }
 
-    protected Input(InputType t, Type v, Variable<Type> var, Function<Type> f)
+    // Full constructor can only be accessed privately
+    private Input(InputType t, Type v, Variable<Type> var, Function<Type> f)
     {
         type = t;
         _value = v;

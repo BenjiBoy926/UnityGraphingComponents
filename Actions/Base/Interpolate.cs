@@ -1,30 +1,42 @@
 ﻿using UnityEngine;
 
-public abstract class Interpolate<Type> : Function<Type>
+public abstract class Interpolate<Type> : Action
 {
+    // FIELDS
+    // PUBLIC
+    // inputs
     public Input<Type> min;
     public Input<Type> max;
     public Input<float> time;
     public Input<AnimationCurve> function;
 
+    // results
     public Result<Type> result;
 
-    public ActionEvents outputs;
+    // outputs
+    public OutputPackage _outputs = new OutputPackage("Start", "Step", "Stop");
 
+    // PRIVATE
     private bool active;
     private float interpolator;
+
+    // PROPERTIES
+    public override TriggerPackage triggers => new TriggerPackage(
+        new TriggerPackage.Item("Start", StartSmoothing), 
+        new TriggerPackage.Item("Stop", StopSmoothing));
+    public override OutputPackage outputs => _outputs;
 
     public void StartSmoothing()
     {
         active = true;
         interpolator = 0;
-        outputs.start.Invoke();
+        outputs.Invoke("Start");
     }
 
     public void StopSmoothing()
     {
         active = false;
-        outputs.stop.Invoke();
+        outputs.Invoke("Stop");
     }
 
     private void Update()
@@ -33,8 +45,8 @@ public abstract class Interpolate<Type> : Function<Type>
         {
             // Update the interpolator and lerp the value and invoke output
             interpolator = Mathf.Clamp01(interpolator + (Time.deltaTime / time.value));
-            result.value = Get();
-            outputs.step.Invoke();
+            result.value = Lerp(min.value, max.value, interpolator);
+            outputs.Invoke("Step");
 
             active = interpolator < 1.0f;
 
@@ -43,11 +55,6 @@ public abstract class Interpolate<Type> : Function<Type>
                 StopSmoothing();
             }
         }
-    }
-
-    public override Type Get()
-    {
-        return Lerp(min.value, max.value, function.value.Evaluate(interpolator));
     }
 
     protected abstract Type Lerp(Type a, Type b, float t);

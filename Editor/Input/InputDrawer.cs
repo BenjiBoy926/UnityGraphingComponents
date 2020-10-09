@@ -44,7 +44,7 @@ public class InputDrawer : PropertyDrawer
     }
 
     // HELPERS
-    private Rect OnGUIType(Rect position, SerializedProperty property)
+    public static Rect OnGUIType(Rect position, SerializedProperty property)
     {
         position = new Rect(position.position, new Vector2(TYPE_WIDTH, position.height));
         EditorGUI.PropertyField(position, property.FindPropertyRelative("type"), GUIContent.none);
@@ -52,7 +52,7 @@ public class InputDrawer : PropertyDrawer
         return position;
     }
 
-    private void OnGUIValue(Rect topBarPosition, float width, Rect fullPosition, SerializedProperty property)
+    public static void OnGUIValue(Rect topBarPosition, float width, Rect fullPosition, SerializedProperty property)
     {
         topBarPosition.width = width;
 
