@@ -7,27 +7,18 @@ public class OutputDrawer : PropertyDrawer
     // OVERRIDES
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        Rect rect = new Rect(position.position, new Vector2(position.width, GraphingEditorUtility.standardControlHeight));
-        property.isExpanded = EditorGUI.Foldout(rect, property.isExpanded, label);
-        rect.y += GraphingEditorUtility.standardControlHeight;
+        position.height = GraphingEditorUtility.standardControlHeight;
 
-        if (property.isExpanded)
-        {
-            // Edit the action input
-            EditorGUI.PropertyField(rect, property.FindPropertyRelative("action"), true);
-            rect.y += GraphingEditorUtility.standardControlHeight;
+        // Edit the action input
+        EditorGUI.PropertyField(position, property.FindPropertyRelative("action"), true);
+        position.y += GraphingEditorUtility.standardControlHeight;
 
-            OnGUITriggerSelector(rect, property);
-        }
+        OnGUITriggerSelector(position, property);
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        if (property.isExpanded)
-        {
-            return GraphingEditorUtility.standardControlHeight * 3f;
-        }
-        else return GraphingEditorUtility.standardControlHeight;
+        return GraphingEditorUtility.standardControlHeight * 2f;
     }
 
     // HELPERS
