@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class EventReceiver : Action
+public class EventReceiver : MonoBehaviour
 {
     public List<EventHook> hooks;
 

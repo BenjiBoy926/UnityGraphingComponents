@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Interpolate<Type> : Action
+public abstract class Interpolate<Type> : MonoBehaviour
 {
     // FIELDS
     // PUBLIC
@@ -14,17 +14,16 @@ public abstract class Interpolate<Type> : Action
     public Result<Type> result;
 
     // outputs
-    public OutputPackage _outputs = new OutputPackage("Start", "Step", "Stop");
+    public OutputSet outputs = new OutputSet("Start", "Step", "Stop");
 
     // PRIVATE
     private bool active;
     private float interpolator;
 
     // PROPERTIES
-    public override TriggerPackage triggers => new TriggerPackage(
-        new TriggerPackage.Item("Start", StartSmoothing), 
-        new TriggerPackage.Item("Stop", StopSmoothing));
-    public override OutputPackage outputs => _outputs;
+    //public override TriggerPackage triggers => new TriggerPackage(
+    //    new TriggerPackage.Item("Start", StartSmoothing), 
+    //    new TriggerPackage.Item("Stop", StopSmoothing));
 
     public void StartSmoothing()
     {

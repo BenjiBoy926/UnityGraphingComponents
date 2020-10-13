@@ -1,4 +1,6 @@
-﻿public class Foreach<Type> : Action
+﻿using UnityEngine;
+
+public class Foreach<Type> : MonoBehaviour
 {
     // FIELDS
     // PUBLIC
@@ -10,14 +12,13 @@
     public Result<int> currentIndex;
 
     // outputs
-    public OutputPackage _outputs = new OutputPackage("Start", "Step", "Stop");
+    public OutputSet outputs = new OutputSet("Start", "Step", "Stop");
 
     // PRIVATE
     private Type current;
 
     // PROPERTIES
-    public override TriggerPackage triggers => new TriggerPackage(new TriggerPackage.Item("Invoke", Invoke));
-    public override OutputPackage outputs => _outputs;
+    //public override TriggerPackage triggers => new TriggerPackage(new TriggerPackage.Item("Invoke", Invoke));
 
     // METHODS
     public void Invoke()

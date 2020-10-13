@@ -1,4 +1,6 @@
-﻿public class Setter<Type> : Action
+﻿using UnityEngine;
+
+public class Setter<Type> : MonoBehaviour
 {
     // FIELDS
     // PUBLIC
@@ -9,15 +11,14 @@
     public Result<Type> result;
 
     // outputs
-    public OutputPackage _outputs = new OutputPackage("Output");
+    public OutputSet outputs = new OutputSet("Output");
 
     // PROPERTIES
-    public override TriggerPackage triggers => new TriggerPackage(new TriggerPackage.Item("Invoke", Invoke));
-    public override OutputPackage outputs => _outputs;
+    //public override TriggerSet triggers => new TriggerSet(new Trigger(Invoke));
 
     public void Invoke()
     {
         result.value = input.value;
-        _outputs.Invoke("Output");
+        outputs.Invoke("Output");
     }
 }

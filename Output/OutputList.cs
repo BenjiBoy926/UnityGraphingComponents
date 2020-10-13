@@ -14,11 +14,11 @@ public class OutputList
     }
 
     // METHODS
-    public void Invoke()
+    public void Invoke(Action invokingAction = null)
     {
         foreach(Output o in outputs)
         {
-            o.Invoke();
+            o.Invoke(invokingAction);
         }
     }
 }

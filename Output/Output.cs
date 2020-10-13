@@ -1,11 +1,14 @@
 ﻿[System.Serializable]
 public class Output
 {
-    public Action action;
+    // FIELDS
+    // public
+    public Input<Action> action;
     public string triggerName;
 
-    public void Invoke()
+    // METHODS
+    public void Invoke(Action invokingAction = null)
     {
-        action.Trigger(triggerName);
+        action.value.Trigger(triggerName, invokingAction);
     }
 }

@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-// EXPERIMENTAL
+﻿// EXPERIMENTAL
 public class RedirectedAction : Action
 {
     // FIELDS
@@ -10,24 +7,20 @@ public class RedirectedAction : Action
     public Input<Action> redirect;
 
     // outputs
-    public OutputPackage _outputs = new OutputPackage("Output");
+    public OutputSet _outputs = new OutputSet("Output");
 
-    public override TriggerPackage triggers
+    public override TriggerSet triggers
     {
         get
         {
-            //return new TriggerPackage(redirect.value.triggers);
             try
             {
-                return new TriggerPackage(redirect.value.triggers);
+                return new TriggerSet(redirect.value.triggers);
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
-                Debug.LogError(e);
-                return new TriggerPackage();
+                return new TriggerSet();
             }
         }
     }
-
-    public override OutputPackage outputs => _outputs;
 }

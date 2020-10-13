@@ -2,7 +2,7 @@
 using UnityEditor;
 
 [CustomPropertyDrawer(typeof(NamedItems<>))]
-[CustomPropertyDrawer(typeof(OutputPackage))]
+[CustomPropertyDrawer(typeof(OutputSet))]
 public class NamedItemsDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

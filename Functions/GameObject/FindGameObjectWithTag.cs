@@ -7,11 +7,6 @@ public class FindGameObjectWithTag : Function<GameObject>
 
     public override GameObject Get()
     {
-        if(GameObject.FindGameObjectWithTag(tagInput.value.value) == null)
-        {
-            Debug.Log("Could not find game object with tag " + tagInput.value.value);
-        }
-
         return GameObject.FindGameObjectWithTag(tagInput.value.value);
     }
 }
