@@ -1,8 +1,17 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Input<Type> : BaseInput
+public class Input<Type>
 {
+    public enum InputType
+    {
+        Value, Variable, Function
+    }
+
+    [SerializeField]
+    [Tooltip("Type of the input")]
+    private InputType type;
+
     [SerializeField]
     [Tooltip("Value of the input")]
     private Type _value;

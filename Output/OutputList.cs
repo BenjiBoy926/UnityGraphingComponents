@@ -8,6 +8,7 @@ public class OutputList
     private Output[] outputs;
 
     // CONSTRUCTORS
+    public OutputList() : this(null) { }
     public OutputList(Output[] o)
     {
         outputs = o;

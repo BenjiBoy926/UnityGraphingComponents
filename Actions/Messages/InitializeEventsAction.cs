@@ -1,7 +1,8 @@
 ﻿public class InitializeEventsAction : Action
 {
     // FIELDS
-    public OutputSet _outputs = new OutputSet("Awake", "Start");
+    [OutputSetEditor("Awake", "Start")]
+    public OutputSet _outputs;
 
     // PROPERTIES
     protected override OutputSet outputs => _outputs;

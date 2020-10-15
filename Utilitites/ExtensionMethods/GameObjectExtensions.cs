@@ -1,19 +1,14 @@
 ﻿using UnityEngine;
 using System.Text;
 
-public static class GraphingExtensionMethods
+public static class GameObjectExtensions
 {
-    public static bool IsSameAsOrSubclassOf(this System.Type src, System.Type other)
-    {
-        return src == other || src.IsSubclassOf(other);
-    }
-
     public static string Path(this GameObject src)
     {
         StringBuilder builder = new StringBuilder(src.name);
         Transform current = src.transform.parent;
 
-        while(current != null)
+        while (current != null)
         {
             // Insert the name at the beginning of the string
             builder.Insert(0, "/");

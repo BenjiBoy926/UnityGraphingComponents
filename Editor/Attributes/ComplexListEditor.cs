@@ -4,8 +4,9 @@ using UnityEditor;
 public static class ComplexListEditor
 {
     // CONSTANTS
-    private const float MINI_BUTTON_WIDTH = 30f;
-    private const float MINI_BUTTON_BUFFER = 10f;
+    private const float MINI_BUTTON_LEFT_MARGIN = 4f;
+    private const float MINI_BUTTON_AREA_WIDTH = 16f;
+    private const float MINI_BUTTON_WIDTH = MINI_BUTTON_LEFT_MARGIN + MINI_BUTTON_AREA_WIDTH;
 
     // FIELDS
     private static GUIStyle buttonStyle = new GUIStyle()
@@ -29,7 +30,7 @@ public static class ComplexListEditor
     };
 
     // METHODS
-    public static void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    public static void OnGUI(Rect position, SerializedProperty property, GUIContent label, bool foldout = true)
     {
         if (property.isArray)
         {
@@ -37,7 +38,6 @@ public static class ComplexListEditor
         }
         else
         {
-            Debug.LogWarning(property.propertyPath + " is not an array.");
             EditorGUI.PropertyField(position, property, true);
         }
     }
@@ -79,18 +79,30 @@ public static class ComplexListEditor
         return height;
     }
 
-    private static void OnGUIList(Rect position, SerializedProperty property, GUIContent label)
+    private static void OnGUIList(Rect position, SerializedProperty property, GUIContent label, bool foldout = true)
     {
-        Rect foldoutRect = new Rect(position.position, new Vector2(position.width, GraphingEditorUtility.standardControlHeight));
-        property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, label);
+        
+        // Check if we want to use a foldout for the list
+        if (foldout)
+        {
+            Rect foldoutRect = new Rect(position.position, new Vector2(position.width, GraphingEditorUtility.standardControlHeight));
+            property.isExpanded = EditorGUI.Foldout(foldoutRect, property.isExpanded, label);
+            EditorGUI.indentLevel++;
 
-        position.y += GraphingEditorUtility.standardControlHeight;
-        position.height -= GraphingEditorUtility.standardControlHeight;
+            position.y += GraphingEditorUtility.standardControlHeight;
+            position.height -= GraphingEditorUtility.standardControlHeight;
+        }
+        else property.isExpanded = true;
 
         // If property is expanded, edit the elements
         if (property.isExpanded)
         {
             OnGUIElements(position, property);
+        }
+
+        if(foldout)
+        {
+            EditorGUI.indentLevel--;
         }
     }
 
@@ -109,7 +121,7 @@ public static class ComplexListEditor
         else
         {
             Rect buttonPositions;
-            position.width -= (MINI_BUTTON_WIDTH * 3f + MINI_BUTTON_BUFFER);
+            position.width -= MINI_BUTTON_WIDTH * 3f;
 
             for (int i = 0; i < property.arraySize; i++)
             {
@@ -118,7 +130,7 @@ public static class ComplexListEditor
                 EditorGUI.PropertyField(position, property.GetArrayElementAtIndex(i), true);
 
                 // Edit the buttons for the current list element
-                buttonPositions = new Rect(position.x + position.width + MINI_BUTTON_BUFFER, position.y, MINI_BUTTON_WIDTH * 3f, GraphingEditorUtility.standardControlHeight);
+                buttonPositions = new Rect(position.x + position.width, position.y, MINI_BUTTON_WIDTH * 3f, GraphingEditorUtility.standardControlHeight);
                 OnGUIButtons(buttonPositions, property, i);
 
                 // Move position down
@@ -130,30 +142,25 @@ public static class ComplexListEditor
     private static void OnGUIButtons(Rect position, SerializedProperty property, int index)
     {
         // Move down button moves the array element down int he list
-        position.width = MINI_BUTTON_WIDTH;
+        position.width = MINI_BUTTON_AREA_WIDTH;
+        position.x += MINI_BUTTON_LEFT_MARGIN;
         if (GUI.Button(position, "\u21b4", buttonStyle))
         {
             property.MoveArrayElement(index, index + 1);
         }
-        position.x += MINI_BUTTON_WIDTH;
+        position.x += position.width + MINI_BUTTON_LEFT_MARGIN;
 
         // Insert button inserts an array element after this element
         if (GUI.Button(position, "+", buttonStyle))
         {
             property.InsertArrayElementAtIndex(index);
         }
-        position.x += MINI_BUTTON_WIDTH;
+        position.x += position.width + MINI_BUTTON_LEFT_MARGIN;
 
         // Delete button deletes the element in the list
         if (GUI.Button(position, "-", buttonStyle))
         {
-            // Ensure that the property is properly deleted
-            int oldSize = property.arraySize;
-            property.DeleteArrayElementAtIndex(index);
-            if (property.arraySize == oldSize)
-            {
-                property.DeleteArrayElementAtIndex(index);
-            }
+            property.DestroyArrayElement(index);
         }
     }
 }

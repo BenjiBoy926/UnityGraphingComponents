@@ -5,7 +5,9 @@ public class SetRotation : Action
     // FIELDS
     public Input<GameObject> input;
     public Input<Quaternion> newRotation;
-    public OutputSet _outputs = new OutputSet();
+
+    [OutputSetEditor]
+    public OutputSet _outputs;
 
     // PROPERTIES
     public override TriggerSet triggers => new TriggerSet(new Trigger(Invoke));
