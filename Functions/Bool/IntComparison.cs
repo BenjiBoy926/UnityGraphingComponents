@@ -4,7 +4,7 @@
     public Input<int> int1;
     public Input<int> int2;
 
-    public override bool Get()
+    protected override bool GetValue()
     {
         switch (comparison)
         {

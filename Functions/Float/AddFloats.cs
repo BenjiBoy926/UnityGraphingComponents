@@ -3,7 +3,7 @@
     public Input<float> float1;
     public Input<float> float2;
 
-    public override float Get()
+    protected override float GetValue()
     {
         return float1.value + float2.value;
     }

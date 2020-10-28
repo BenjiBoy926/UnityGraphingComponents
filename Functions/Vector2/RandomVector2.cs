@@ -5,7 +5,7 @@ public class RandomVector2 : Function<Vector2>
     public Input<Vector2> min;
     public Input<Vector2> max;
 
-    public override Vector2 Get()
+    protected override Vector2 GetValue()
     {
         return Get(min.value, max.value);
     }

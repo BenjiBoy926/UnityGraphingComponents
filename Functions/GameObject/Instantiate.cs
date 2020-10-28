@@ -6,7 +6,7 @@ public class Instantiate : Function<GameObject>
     public Input<GameObject> parent;
     public Input<Vector3> localOrigin;
 
-    public override GameObject Get()
+    protected override GameObject GetValue()
     {
         Transform cloneParent = parent.value != null ? parent.value.transform : null;
         Vector3 worldPosition = cloneParent != null ? cloneParent.position + localOrigin.value : localOrigin.value;

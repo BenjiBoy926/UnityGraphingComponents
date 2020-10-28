@@ -4,7 +4,7 @@ public class FloatAbsoluteValue : Function<float>
 {
     public Input<float> input;
 
-    public override float Get()
+    protected override float GetValue()
     {
         return Mathf.Abs(input.value);
     }

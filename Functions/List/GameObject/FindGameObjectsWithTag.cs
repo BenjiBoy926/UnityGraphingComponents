@@ -5,7 +5,7 @@ public class FindGameObjectsWithTag : Function<GameObject[]>
 {
     public Input<Tag> tagInput;
 
-    public override GameObject[] Get()
+    protected override GameObject[] GetValue()
     {
         return GameObject.FindGameObjectsWithTag(tagInput.value.value);
     }

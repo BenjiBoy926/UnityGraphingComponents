@@ -4,7 +4,7 @@
     public Input<float> _operator;
     public Input<float> operand;
 
-    public override float Get()
+    protected override float GetValue()
     {
         switch(operation)
         {

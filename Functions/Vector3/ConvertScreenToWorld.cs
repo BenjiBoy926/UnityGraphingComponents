@@ -15,7 +15,7 @@ public class ConvertScreenToWorld : Function<Vector3>
     public Input<Camera> viewport;
     public Input<Vector3> input;
 
-    public override Vector3 Get()
+    protected override Vector3 GetValue()
     {
         switch (type)
         {

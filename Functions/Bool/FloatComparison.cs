@@ -4,7 +4,7 @@
     public Input<float> float1;
     public Input<float> float2;
 
-    public override bool Get()
+    protected override bool GetValue()
     {
         switch(comparison)
         {

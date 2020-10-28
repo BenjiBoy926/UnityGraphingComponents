@@ -5,7 +5,7 @@ public class GetPosition : Function<Vector3>
     public Space space;
     public Input<GameObject> input;
 
-    public override Vector3 Get()
+    protected override Vector3 GetValue()
     {
         if (space == Space.World)
         {

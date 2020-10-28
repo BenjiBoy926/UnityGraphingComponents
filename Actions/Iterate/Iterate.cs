@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Iterate : Function<int>
+public class Iterate : MonoBehaviour
 {
     // FIELDS
     // Public
@@ -26,10 +26,5 @@ public class Iterate : Function<int>
         }
 
         outputs.stop.Invoke();
-    }
-
-    public override int Get()
-    {
-        return currentValue;
     }
 }

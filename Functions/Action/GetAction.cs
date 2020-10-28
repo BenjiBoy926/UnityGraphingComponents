@@ -4,7 +4,7 @@ public class GetAction : Function<Action>
 {
     public Input<GameObject> input;
 
-    public override Action Get()
+    protected override Action GetValue()
     {
         return input.value.GetComponent<Action>();
     }

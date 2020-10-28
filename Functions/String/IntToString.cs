@@ -7,7 +7,7 @@ public class IntToString : Function<string>
 {
     public Input<int> integer;
 
-    public override string Get()
+    protected override string GetValue()
     {
         return integer.value.ToString();
     }

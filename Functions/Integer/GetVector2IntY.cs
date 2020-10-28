@@ -5,7 +5,7 @@ public class GetVector2IntY : Function<int>
 {
     public Input<Vector2Int> input;
 
-    public override int Get()
+    protected override int GetValue()
     {
         return input.value.y;
     }

@@ -3,9 +3,9 @@
 public class Function<TResult> : MonoBehaviour
 {
     // Past invokation history for the function
-    private History history;
+    protected History history;
 
-    public TResult Invoke(History parent)
+    public TResult Get(History parent = null)
     {
         history = new History(parent, this);
 
@@ -17,7 +17,7 @@ public class Function<TResult> : MonoBehaviour
 
         try
         {
-            return Get();
+            return GetValue();
         }
         catch(System.Exception e)
         {
@@ -25,13 +25,11 @@ public class Function<TResult> : MonoBehaviour
             return default;
         }
     }
-
-    public virtual TResult Get()
+    protected virtual TResult GetValue()
     {
         throw new System.NotImplementedException(GetType().Name + 
             " does not override base Get() method where overriding is required");
     }
-
     public override string ToString()
     {
         return "Function: " + GetType() + " (at " + gameObject.Path() + ")";

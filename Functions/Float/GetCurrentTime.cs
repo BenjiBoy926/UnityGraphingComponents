@@ -2,7 +2,7 @@
 
 public class GetCurrentTime : Function<float>
 {
-    public override float Get()
+    protected override float GetValue()
     {
         return Time.time;
     }

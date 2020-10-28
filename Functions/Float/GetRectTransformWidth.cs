@@ -4,7 +4,7 @@ public class GetRectTransformWidth : Function<float>
 {
     public Input<GameObject> input;
 
-    public override float Get()
+    protected override float GetValue()
     {
         RectTransform rect = input.value.GetComponent<RectTransform>();
 

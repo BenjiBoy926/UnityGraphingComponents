@@ -5,7 +5,7 @@
     public Input<bool> input1;
     public Input<bool> input2;
 
-    public override bool Get()
+    protected override bool GetValue()
     {
         switch (type)
         {

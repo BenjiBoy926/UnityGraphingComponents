@@ -6,7 +6,7 @@ public class GetVector3Y : Function<float>
 {
     public Input<Vector3> input;
 
-    public override float Get()
+    protected override float GetValue()
     {
         return input.value.y;
     }

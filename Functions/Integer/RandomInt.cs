@@ -6,7 +6,7 @@ public class RandomInt : Function<int>
     public Input<int> min;
     public Input<int> max;
 
-    public override int Get()
+    protected override int GetValue()
     {
         return Random.Range(min.value, max.value);
     }
