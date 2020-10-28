@@ -143,6 +143,7 @@ public static class ComplexListEditor
     {
         // Move down button moves the array element down int he list
         position.width = MINI_BUTTON_AREA_WIDTH;
+        position.height -= 5f;
         position.x += MINI_BUTTON_LEFT_MARGIN;
         if (GUI.Button(position, "\u21b4", buttonStyle))
         {
