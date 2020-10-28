@@ -15,11 +15,11 @@ public class OutputList
     }
 
     // METHODS
-    public void Invoke(Action invokingAction = null)
+    public void Invoke(History parent = null)
     {
         foreach(Output o in outputs)
         {
-            o.Invoke(invokingAction);
+            o.Invoke(parent);
         }
     }
 }

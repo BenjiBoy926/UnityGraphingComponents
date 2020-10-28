@@ -9,9 +9,9 @@ public class History
     private object context;
 
     // CONSTRUCTORS
-    public History(History his, object ctx)
+    public History(History p, object ctx)
     {
-        parent = his;
+        parent = p;
         context = ctx;
     }
 

@@ -8,8 +8,8 @@ public class Output
     private string triggerName;
 
     // METHODS
-    public void Invoke(Action invokingAction = null)
+    public void Invoke(History parent = null)
     {
-        action.value.Trigger(triggerName, invokingAction);
+        action.value.Trigger(triggerName, parent);
     }
 }

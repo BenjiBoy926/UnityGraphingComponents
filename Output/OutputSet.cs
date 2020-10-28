@@ -23,12 +23,12 @@ public class OutputSet
     public OutputSet() : this(Action.DEFAULT_OUTPUT_NAME) { }
 
     // METHODS
-    public void Invoke(string name = Action.DEFAULT_OUTPUT_NAME, Action invokingAction = null)
+    public void Invoke(string name = Action.DEFAULT_OUTPUT_NAME, History parent = null)
     {
         Pair<string, OutputList> pair = System.Array.Find(_outputs, x => x.one == name);
         if(pair != null)
         {
-            pair.two.Invoke(invokingAction);
+            pair.two.Invoke(parent);
         }
     }
 }
