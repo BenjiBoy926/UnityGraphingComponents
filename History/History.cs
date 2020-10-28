@@ -58,6 +58,7 @@ public class History
             {
                 return true;
             }
+            current = current.parent;
         }
         return false;
     }

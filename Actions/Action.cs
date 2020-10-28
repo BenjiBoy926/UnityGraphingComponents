@@ -50,7 +50,7 @@ public class Action : MonoBehaviour
         lastInvokedOutput = "<none>";
 
         // Don't let the action trigger itself
-        if(history.IsCircular())
+        if (history.IsCircular())
         {
             history.LogError(new System.StackOverflowException("Self-trigger is not allowed (" + ToString() + ")"));
             return;
@@ -61,7 +61,7 @@ public class Action : MonoBehaviour
         {
             triggers.Invoke(name);
         }
-        catch(System.Exception e)
+        catch (System.Exception e)
         {
             history.LogError(e);
         }
