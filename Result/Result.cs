@@ -27,18 +27,7 @@ public class Result<Type>
     {
         set
         {
-            switch(type)
-            {
-                case ResultType.Variable:
-                    SetVariableValue(variable, value);
-                    break;
-                case ResultType.Function:
-                    if(function)
-                    {
-                        SetVariableValue(function.Get(), value);
-                    }
-                    break;
-            }
+            SetValue(value, null);
         }
     }
 
@@ -53,6 +42,23 @@ public class Result<Type>
         type = t;
         variable = var;
         function = f;
+    }
+
+    // METHODS
+    public void SetValue(Type val, History parent = null)
+    {
+        switch (type)
+        {
+            case ResultType.Variable:
+                SetVariableValue(variable, val);
+                break;
+            case ResultType.Function:
+                if (function)
+                {
+                    SetVariableValue(function.Get(parent), val);
+                }
+                break;
+        }
     }
 
     // HELPERS

@@ -30,5 +30,5 @@ public class ActionEditor : Editor
 
 [CustomEditor(typeof(CustomAction))]
 public class CustomActionEditor : ActionEditor { }
-[CustomEditor(typeof(InterpolateVector2))]
-public class InterpolateVector2Editor : ActionEditor { }
+[CustomEditor(typeof(SetRotation))]
+public class SetRotationEditor : ActionEditor { }

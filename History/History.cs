@@ -43,7 +43,7 @@ public class History
             e.GetType().Name + ": " + e.Message + System.Environment.NewLine + System.Environment.NewLine +
             "History trace:" + System.Environment.NewLine +
             TracebackFormatted() + System.Environment.NewLine +
-            "Stack trace:" + System.Environment.NewLine +
+            "Stack trace: " +
             e.StackTrace);
     }
 

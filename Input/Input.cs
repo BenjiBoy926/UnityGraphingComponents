@@ -29,13 +29,7 @@ public class Input<Type>
     {
         get
         {
-            switch(type)
-            {
-                case InputType.Value: return _value;
-                case InputType.Variable: return variable.value;
-                case InputType.Function: return function.Get();
-                default: return default;
-            } 
+            return GetValue(null);
         }
     }
 
@@ -53,5 +47,17 @@ public class Input<Type>
         _value = v;
         variable = var;
         function = f;
+    }
+
+    // METHODS
+    public Type GetValue(History parent = null)
+    {
+        switch (type)
+        {
+            case InputType.Value: return _value;
+            case InputType.Variable: return variable.value;
+            case InputType.Function: return function.Get(parent);
+            default: return default;
+        }
     }
 }
