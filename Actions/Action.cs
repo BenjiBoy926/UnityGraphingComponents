@@ -52,7 +52,7 @@ public class Action : MonoBehaviour
         // Don't let the action trigger itself
         if (history.IsCircular())
         {
-            history.LogError(new System.StackOverflowException("Self-trigger is not allowed (" + ToString() + ")"));
+            history.LogError(new System.StackOverflowException("Self-trigger is not allowed: " + ToString()));
             return;
         }
 
@@ -72,6 +72,6 @@ public class Action : MonoBehaviour
     }
     public override string ToString()
     {
-        return GetType().Name + " (at " + gameObject.Path() + ")";
+        return "Action: " + GetType().Name + " (at " + gameObject.Path() + ")";
     }
 }
