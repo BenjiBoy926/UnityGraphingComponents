@@ -5,15 +5,16 @@
     public OutputSet _outputs;
 
     // PROPERTIES
+    protected override TriggerSet triggers => throughTriggers;
     protected override OutputSet outputs => _outputs;
 
     // METHODS
     private void Awake()
     {
-        Output("Awake");
+        Trigger("Awake", null);
     }
     private void Start()
     {
-        Output("Start");
+        Trigger("Start", null);
     }
 }

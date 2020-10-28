@@ -2,21 +2,10 @@
 
 public class CustomAction : Action
 {
-    // Attribute that allows more editing
+    // Output set of a custom action is fully editable
     [OutputSetEditor(OutputSetEditorType.Exposed)]
     public OutputSet _outputs;
 
-    protected override TriggerSet triggers
-    {
-        get
-        {
-            Dictionary<string, Trigger> keyValuePairs = new Dictionary<string, Trigger>();
-            foreach(Pair<string, OutputList> pair in _outputs.outputs)
-            {
-                keyValuePairs.Add(pair.one, new Trigger(() => Output(pair.one)));
-            }
-            return new TriggerSet(keyValuePairs);
-        }
-    }
+    protected override TriggerSet triggers => throughTriggers;
     protected override OutputSet outputs => _outputs;
 }

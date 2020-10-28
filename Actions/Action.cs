@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Text;
+using System.Collections.Generic;
 
 public class Action : MonoBehaviour
 {
@@ -26,6 +26,20 @@ public class Action : MonoBehaviour
     {
         get => throw new System.NotImplementedException("Class " + GetType().Name +
             " does not override property \"outputs\" where overriding is required");
+    }
+    // Return a set of triggers where each trigger has the same name as an output,
+    // and the trigger action calls the output
+    protected TriggerSet throughTriggers
+    {
+        get
+        {
+            Dictionary<string, Trigger> keyValuePairs = new Dictionary<string, Trigger>();
+            foreach (Pair<string, OutputList> pair in outputs.outputs)
+            {
+                keyValuePairs.Add(pair.one, new Trigger(() => Output(pair.one)));
+            }
+            return new TriggerSet(keyValuePairs);
+        }
     }
 
     // METHODS
@@ -54,8 +68,7 @@ public class Action : MonoBehaviour
     }
     protected void Output(string name = DEFAULT_OUTPUT_NAME)
     {
-        lastInvokedOutput = name;
-        outputs.Invoke(name, this);
+        outputs.Invoke(name, history);
     }
     public override string ToString()
     {
