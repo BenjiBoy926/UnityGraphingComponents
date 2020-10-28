@@ -13,7 +13,11 @@ public class Action : MonoBehaviour
     private string lastInvokedOutput = "<none>";
 
     // PROPERTIES
-    public virtual TriggerSet triggers
+    public string[] triggerNames
+    {
+        get => triggers.triggerNames;
+    }
+    protected virtual TriggerSet triggers
     {
         get => throw new System.NotImplementedException("Class " + GetType().Name +
             " does not override property \"triggers\" where overriding is required");

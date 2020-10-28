@@ -45,54 +45,34 @@ public class OutputDrawer : PropertyDrawer
         {
             // Get the object reference as an action
             Action action = (Action)actionObject;
-            TriggerSet triggers = action.triggers;
 
-            if (triggers != null)
+            if (action.triggerNames.Length > 0)
             {
-                int totalTriggers = triggers.triggers.Count;
+                // Setup a popup editor
+                int popupIndex = System.Array.FindIndex(action.triggerNames, t => triggerName.stringValue == t);
 
-                if (totalTriggers > 0)
+                // If current trigger name is not in the array, set index to 0
+                if (popupIndex < 0)
                 {
-                    string[] availableTriggers = new string[totalTriggers];
-
-                    // Copy trigger names into the array
-                    action.triggers.triggers.Keys.CopyTo(availableTriggers, 0);
-
-                    // Setup a popup editor
-                    int popupIndex = System.Array.FindIndex(availableTriggers, t => triggerName.stringValue == t);
-
-                    // If current trigger name is not in the array, set index to 0
-                    if (popupIndex < 0)
-                    {
-                        popupIndex = 0;
-                    }
-
-                    // Put the prefix
-                    rect = EditorGUI.PrefixLabel(rect, new GUIContent("Trigger Name"));
-
-                    // Push old indent
-                    int oldIndent = EditorGUI.indentLevel;
-                    EditorGUI.indentLevel = 0;
-
-                    // Edit trigger string and assign it
-                    popupIndex = EditorGUI.Popup(rect, popupIndex, availableTriggers);
-                    triggerName.stringValue = availableTriggers[popupIndex];
-
-                    // Restore old indent
-                    EditorGUI.indentLevel = oldIndent;
+                    popupIndex = 0;
                 }
-                else OnGUIEmptyPopup(rect, triggerName);
+
+                // Put the prefix
+                rect = EditorGUI.PrefixLabel(rect, new GUIContent("Trigger Name"));
+
+                // Push old indent
+                int oldIndent = EditorGUI.indentLevel;
+                EditorGUI.indentLevel = 0;
+
+                // Edit trigger string and assign it
+                popupIndex = EditorGUI.Popup(rect, popupIndex, action.triggerNames);
+                triggerName.stringValue = action.triggerNames[popupIndex];
+
+                // Restore old indent
+                EditorGUI.indentLevel = oldIndent;
             }
-            else OnGUIEmptyPopup(rect, triggerName);
-
+            else EditorGUI.PropertyField(rect, property.FindPropertyRelative("triggerName"));
         }
-        else OnGUIEmptyPopup(rect, triggerName);
-    }
-
-    private void OnGUIEmptyPopup(Rect rect, SerializedProperty triggerName)
-    {
-        triggerName.stringValue = "";
-        rect = EditorGUI.PrefixLabel(rect, new GUIContent("Trigger Name"));
-        EditorGUI.Popup(rect, 0, new string[] { "" });
+        else EditorGUI.PropertyField(rect, property.FindPropertyRelative("triggerName"));
     }
 }

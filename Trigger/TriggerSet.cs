@@ -18,7 +18,18 @@ public class TriggerSet
     }
 
     // FIELDS
-    public Dictionary<string, Trigger> triggers { get; private set; }
+    private Dictionary<string, Trigger> triggers;
+
+    // PROPERTIES
+    public string[] triggerNames
+    {
+        get
+        {
+            string[] names = new string[triggers.Count];
+            triggers.Keys.CopyTo(names, 0);
+            return names;
+        }
+    }
     
     // CONSTRUCTORS
     public TriggerSet(TriggerSet other) : this(other.triggers) { }

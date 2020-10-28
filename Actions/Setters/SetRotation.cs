@@ -10,7 +10,7 @@ public class SetRotation : Action
     public OutputSet _outputs;
 
     // PROPERTIES
-    public override TriggerSet triggers => new TriggerSet(new Trigger(Invoke));
+    protected override TriggerSet triggers => new TriggerSet(new Trigger(Invoke));
     protected override OutputSet outputs => _outputs;
 
     // METHODS

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class CustomAction : Action
 {
@@ -7,7 +6,7 @@ public class CustomAction : Action
     [OutputSetEditor(OutputSetEditorType.Exposed)]
     public OutputSet _outputs;
 
-    public override TriggerSet triggers
+    protected override TriggerSet triggers
     {
         get
         {
